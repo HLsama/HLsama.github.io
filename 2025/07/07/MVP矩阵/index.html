@@ -3,7 +3,7 @@
 <html lang="zh">
 <head>
     <meta charset="utf-8" />
-    <title>MPV矩阵 | 枫雪のHome</title>
+    <title>MVP矩阵 | 枫雪のHome</title>
     <meta name="author" content="枫雪" />
     <meta name="description" content="Elysia love" />
     <meta name="keywords" content="" />
@@ -161,7 +161,7 @@
         <div id="main" :class="loading ? 'into-enter-from': 'into-enter-active'">
             <div class="article">
     <div>
-        <h1>MPV矩阵</h1>
+        <h1>MVP矩阵</h1>
     </div>
     <div class="info">
         <span class="date">
@@ -189,7 +189,7 @@
             
             <span class="tag">
                 
-                <a href="/tags/%E5%9B%BE%E5%BD%A2%E5%AD%A6%E5%9F%BA%E7%A1%80/" style="color: #00bcd4">
+                <a href="/tags/%E5%9B%BE%E5%BD%A2%E5%AD%A6%E5%9F%BA%E7%A1%80/" style="color: #ff7d73">
                     图形学基础
                 </a>
             </span>
@@ -238,7 +238,7 @@ $$</span> <strong>齐次坐标</strong></p>
 <p>为了统一纺射变换（平移）与线性变换（旋转和缩放）在图形学中一般使用齐次坐标来表达，也就是说我们在原本的3维矩阵中多加一个维度变成4x4的矩阵，这样平移矩阵就也可以像缩放和旋转矩阵一样使用了，矩阵中第四列就是表示的平移量。引入齐次坐标后，我们可以通过第四个维度来也就是w分量区分顶点和向量，一般顶点表示为（x，y，z，1）而向量则表示为（x，y，z，0）。这样表示有一些好处：</p>
 <ol type="1">
 <li>点+向量=点——当顶点和向量相加时表示的是这个顶点向向量方向移动一段距离：对于任意顶点P=（x，y，z，1）我们与任意向量<span
-class="math inline"><em>a⃗</em></span>=（a，b，c，0）相加所得结果P’=(x+a，y+b，z+c，1+0)，也就是我们所得结果还是一个顶点。</li>
+class="math inline">$\vec{a_1}$</span>=（a，b，c，0）相加所得结果P’=(x+a，y+b，z+c，1+0)，也就是我们所得结果还是一个顶点。</li>
 <li>向量+向量=向量——当向量与向量相加的时候得到一个新向量，表示两个向量的叠加：我们有<span
 class="math inline">$\vec{a_1}=（a_1，b_1，c_1，0）$</span>与<span
 class="math inline">$\vec{a_2}=（a_2，b_2，c_2，0）$</span>相加所得结果<span
@@ -257,7 +257,7 @@ class="math inline">$（\frac{x_1+x_2}{2}，\frac{y_1+y_2}{2}，\frac{z_1+z_2}{2
 <h2 id="旋转矩阵">2.2旋转矩阵</h2>
 <p>对于旋转矩阵的推导我们可以先考虑二维空间的情况。</p>
 <p>如图所示，我们要将图形进行如下的旋转。</p>
-<p><img src="MPV矩阵/image-20250727171407324.png" /></p>
+<p><img src="./image-20250727171407324.png" /></p>
 <p>我们将蓝色方块旋转<span
 class="math inline"><em>θ</em></span>角，点B变换到<span
 class="math inline"><em>B</em><sub>1</sub></span>点，点D变换到<span
@@ -300,24 +300,34 @@ Sin\theta&amp;Cos\theta\\
 \end{pmatrix}
 $$</span>
 对于三维空间我们有些许不同，如下图所示，对于三维空间我们旋转的方向自由了很多，可以有各种各样的旋转方式。而求得可以实现任意方向旋转的旋转矩阵是非常复杂的。我们姑且可以用一个取巧的方式：先学会各个轴的旋转矩阵，再用各轴旋转来组合成为任意方向的旋转矩阵。</p>
-<figure>
-<img
-src="C:\Users\86176\AppData\Roaming\Typora\typora-user-images\image-20250727174035493.png"
-alt="image-20250727174035493" />
-<figcaption aria-hidden="true">image-20250727174035493</figcaption>
-</figure>
-这里先直接给出各个轴的旋转矩阵 $$ R_x() =
-<h1 id="r_y">R_y()</h1>
-
-<h1 id="r_z">R_z()</h1>
-<p>$$
+<p><img src="image-20250727174035493.png" /></p>
+<p>这里先直接给出各个轴的旋转矩阵 <span class="math display">$$
+R_x(\theta) =
+\begin{pmatrix}
+1 &amp; 0 &amp; 0 &amp; 0 \\
+0 &amp; \cos\theta &amp; -\sin\theta &amp; 0 \\
+0 &amp; \sin\theta &amp; \cos\theta &amp; 0 \\
+0 &amp; 0 &amp; 0 &amp; 1
+\end{pmatrix}
+\quad
+R_y(\theta) =
+\begin{pmatrix}
+\cos\theta &amp; 0 &amp; \sin\theta &amp; 0 \\
+0 &amp; 1 &amp; 0 &amp; 0 \\
+-\sin\theta &amp; 0 &amp; \cos\theta &amp; 0 \\
+0 &amp; 0 &amp; 0 &amp; 1
+\end{pmatrix}
+\quad
+R_z(\theta) =
+\begin{pmatrix}
+\cos\theta &amp; -\sin\theta &amp; 0 &amp; 0 \\
+\sin\theta &amp; \cos\theta &amp; 0 &amp; 0 \\
+0 &amp; 0 &amp; 1 &amp; 0 \\
+0 &amp; 0 &amp; 0 &amp; 1
+\end{pmatrix}
+$$</span>
 我们可以这样理解三维的各轴矩阵：首先，对于各轴的旋转，所对应轴的顶点是没有变化的，所以三个矩阵对应的轴值不变：</p>
-<figure>
-<img
-src="C:\Users\86176\AppData\Roaming\Typora\typora-user-images\image-20250727175131383.png"
-alt="image-20250727175131383" />
-<figcaption aria-hidden="true">image-20250727175131383</figcaption>
-</figure>
+<p><img src="image-20250727175131383.png" /></p>
 <p>而内部，其实就是二维的旋转矩阵，只不过对于Y轴来说情况有点特殊，根据右手螺旋定则：<span
 class="math inline"><em>z</em> = <em>x</em> × <em>y</em></span>，<span
 class="math inline"><em>x</em> = <em>y</em> × <em>z</em></span>，而对于y则有些特殊，<span
