@@ -189,7 +189,7 @@
             
             <span class="tag">
                 
-                <a href="/tags/%E5%9B%BE%E5%BD%A2%E5%AD%A6%E5%9F%BA%E7%A1%80/" style="color: #00bcd4">
+                <a href="/tags/%E5%9B%BE%E5%BD%A2%E5%AD%A6%E5%9F%BA%E7%A1%80/" style="color: #ffa2c4">
                     图形学基础
                 </a>
             </span>
@@ -199,7 +199,7 @@
     </div>
     
     <div class="content" v-pre>
-        <p>挖坑施工中（MVP矩阵过于基础和深刻，需要花很长时间将他完善，已完成到模型矩阵的旋转部分）——MVP矩阵是渲染中基础中的基础，很多进阶效果都需要对MVP矩阵有深刻的理解，下文将对MVP矩阵进行详细的讲解</p>
+        <p>挖坑施工中（MVP矩阵过于基础和深刻，需要花很长时间将他完善，已完成到模型矩阵的平移部分）——MVP矩阵是渲染中基础中的基础，很多进阶效果都需要对MVP矩阵有深刻的理解，下文将对MVP矩阵进行详细的讲解</p>
 <span id="more"></span>
 <h1 id="mvp矩阵概述">1.MVP矩阵概述</h1>
 <p>模型本质是一堆点坐标的集合，各点的坐标位置就是建模软件中模型的各个顶点坐标，这个阶段的坐标被成为模型空间坐标或者对象空间（Object
@@ -220,12 +220,15 @@ $$</span></p>
 class="math inline"><em>S</em><sub><em>x</em></sub></span>，<span
 class="math inline"><em>S</em><sub><em>y</em></sub></span>，<span
 class="math inline"><em>S</em><sub><em>z</em></sub></span>只需要将x，y，z各点乘以对应的缩放值就可以了：<span
-class="math inline"><em>P</em><sub><em>x</em></sub> = (<em>x</em> × <em>S</em><sub><em>x</em></sub>, <em>y</em> × <em>S</em><sub><em>y</em></sub>, <em>z</em> × <em>S</em><sub><em>z</em></sub>)</span></p>
+class="math inline"><em>P</em><sub><em>x</em></sub> = (<em>x</em> × <em>S</em><sub><em>x</em></sub>, <em>y</em> × <em>S</em><sub><em>y</em></sub>, <em>z</em> × <em>S</em><sub><em>z</em></sub>)</span>，这里<span
+class="math inline"><em>S</em><sub><em>x</em></sub></span>，<span
+class="math inline"><em>S</em><sub><em>y</em></sub></span>，<span
+class="math inline"><em>S</em><sub><em>z</em></sub></span>所对应的就是unity中Transform的缩放的XYZ值。</p>
 <p>写成矩阵形式： <span class="math display">$$
 P_s=\begin{pmatrix}
 S_x &amp; 0 &amp; 0 &amp;0 \\
 0 &amp; S_y &amp; 0 &amp;0\\
-0 &amp; 0 &amp; S_y &amp;0\\
+0 &amp; 0 &amp; S_z &amp;0\\
 0&amp;0&amp;0&amp;1
 \end{pmatrix}
 \begin{pmatrix}
@@ -334,7 +337,26 @@ class="math inline"><em>x</em> = <em>y</em> × <em>z</em></span>，而�
 class="math inline"><em>y</em> = <em>z</em> × <em>x</em></span>而不是<span
 class="math inline"><em>y</em> = <em>x</em> × <em>z</em></span>所以y是反过来的，中间的两个sin值对于传统的二维矩阵来说是取负的</p>
 <p>得到各轴的旋转方式之后，我们就可以将旋转进行组合，得到任意方向的旋转<span
-class="math inline"><em>R</em><sub><em>x</em><em>y</em><em>z</em></sub>(<em>α</em>, <em>β</em>, <em>γ</em>) = <em>R</em><sub><em>x</em></sub>(<em>α</em>)<em>R</em><sub><em>y</em></sub>(<em>β</em>)<em>R</em><sub><em>z</em></sub>(<em>γ</em>)</span>用于旋转的四个角就是欧拉角。</p>
+class="math inline"><em>R</em><sub><em>x</em><em>y</em><em>z</em></sub>(<em>α</em>, <em>β</em>, <em>γ</em>) = <em>R</em><sub><em>x</em></sub>(<em>α</em>)<em>R</em><sub><em>y</em></sub>(<em>β</em>)<em>R</em><sub><em>z</em></sub>(<em>γ</em>)</span>用于旋转的四个角就是欧拉角。这三个欧拉角所对应的就是unity中Transform的旋转的XYZ值。</p>
+<h2 id="平移矩阵">2.3平移矩阵</h2>
+<p>平移矩阵最为简单，前面说过，为了统一平移和旋转、缩放矩阵使用齐次坐标，而齐次坐标的最后一列所对应的就是平移矩阵。我们直接给出平移矩阵：
+<span class="math display">$$
+\begin{pmatrix}
+1 &amp; 0 &amp; 0 &amp;S_x \\
+0 &amp; 1 &amp; 0 &amp;S_y\\
+0 &amp; 0 &amp; 1 &amp;S_z\\
+0&amp;0&amp;0&amp;1
+\end{pmatrix}
+$$</span> <span
+class="math inline"><em>S</em><sub><em>x</em></sub></span>，<span
+class="math inline"><em>S</em><sub><em>y</em></sub></span>，<span
+class="math inline"><em>S</em><sub><em>z</em></sub></span>所对应的就是unity中Transform的平移的XYZ值。我们直接将<span
+class="math inline"><em>S</em><sub><em>x</em></sub></span>，<span
+class="math inline"><em>S</em><sub><em>y</em></sub></span>，<span
+class="math inline"><em>S</em><sub><em>z</em></sub></span>分别与点坐标的XYZ相加就好。</p>
+<p>需要注意的是，我们在进行所有变换的时候一定要注意顺序，一定要按照缩放—旋转—平移的顺序来做，否则的话会得到不正确的结果。先旋转再平移和先平移再旋转为例：</p>
+<p><img src="geogebra-export.png" /></p>
+<p>蓝色为原图形，红色是先旋转再平移后的结果，而绿色则是先平移再旋转的结果，可以看到：绿色的图形先平移之后还以原点为中心进行旋转导致我们得到了错误的结果。</p>
 
     </div>
     
