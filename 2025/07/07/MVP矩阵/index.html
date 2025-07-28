@@ -199,7 +199,7 @@
     </div>
     
     <div class="content" v-pre>
-        <p>挖坑施工中（MVP矩阵过于基础和深刻，需要花很长时间将他完善，已完成到模型矩阵的平移部分）——MVP矩阵是渲染中基础中的基础，很多进阶效果都需要对MVP矩阵有深刻的理解，下文将对MVP矩阵进行详细的讲解</p>
+        <p>挖坑施工中（MVP矩阵过于基础和深刻，需要花很长时间将他完善，已完成视图矩阵）——MVP矩阵是渲染中基础中的基础，很多进阶效果都需要对MVP矩阵有深刻的理解，下文将对MVP矩阵进行详细的讲解</p>
 <span id="more"></span>
 <h1 id="mvp矩阵概述">1.MVP矩阵概述</h1>
 <p>模型本质是一堆点坐标的集合，各点的坐标位置就是建模软件中模型的各个顶点坐标，这个阶段的坐标被成为模型空间坐标或者对象空间（Object
@@ -220,12 +220,12 @@ $$</span></p>
 class="math inline"><em>S</em><sub><em>x</em></sub></span>，<span
 class="math inline"><em>S</em><sub><em>y</em></sub></span>，<span
 class="math inline"><em>S</em><sub><em>z</em></sub></span>只需要将x，y，z各点乘以对应的缩放值就可以了：<span
-class="math inline"><em>P</em><sub><em>x</em></sub> = (<em>x</em> × <em>S</em><sub><em>x</em></sub>, <em>y</em> × <em>S</em><sub><em>y</em></sub>, <em>z</em> × <em>S</em><sub><em>z</em></sub>)</span>，这里<span
+class="math inline"><em>S</em><sub><em>m</em></sub> = (<em>x</em> × <em>S</em><sub><em>x</em></sub>, <em>y</em> × <em>S</em><sub><em>y</em></sub>, <em>z</em> × <em>S</em><sub><em>z</em></sub>)</span>，这里<span
 class="math inline"><em>S</em><sub><em>x</em></sub></span>，<span
 class="math inline"><em>S</em><sub><em>y</em></sub></span>，<span
 class="math inline"><em>S</em><sub><em>z</em></sub></span>所对应的就是unity中Transform的缩放的XYZ值。</p>
-<p>写成矩阵形式： <span class="math display">$$
-P_s=\begin{pmatrix}
+<p>写成矩阵形式，缩放矩阵： <span class="math display">$$
+S_m=\begin{pmatrix}
 S_x &amp; 0 &amp; 0 &amp;0 \\
 0 &amp; S_y &amp; 0 &amp;0\\
 0 &amp; 0 &amp; S_z &amp;0\\
@@ -337,26 +337,84 @@ class="math inline"><em>x</em> = <em>y</em> × <em>z</em></span>，而�
 class="math inline"><em>y</em> = <em>z</em> × <em>x</em></span>而不是<span
 class="math inline"><em>y</em> = <em>x</em> × <em>z</em></span>所以y是反过来的，中间的两个sin值对于传统的二维矩阵来说是取负的</p>
 <p>得到各轴的旋转方式之后，我们就可以将旋转进行组合，得到任意方向的旋转<span
-class="math inline"><em>R</em><sub><em>x</em><em>y</em><em>z</em></sub>(<em>α</em>, <em>β</em>, <em>γ</em>) = <em>R</em><sub><em>x</em></sub>(<em>α</em>)<em>R</em><sub><em>y</em></sub>(<em>β</em>)<em>R</em><sub><em>z</em></sub>(<em>γ</em>)</span>用于旋转的四个角就是欧拉角。这三个欧拉角所对应的就是unity中Transform的旋转的XYZ值。</p>
+class="math inline"><em>R</em><sub><em>m</em></sub>(<em>α</em>, <em>β</em>, <em>γ</em>) = <em>R</em><sub><em>x</em></sub>(<em>α</em>)<em>R</em><sub><em>y</em></sub>(<em>β</em>)<em>R</em><sub><em>z</em></sub>(<em>γ</em>)</span>用于旋转的四个角就是欧拉角。这三个欧拉角所对应的就是unity中Transform的旋转的XYZ值。</p>
 <h2 id="平移矩阵">2.3平移矩阵</h2>
 <p>平移矩阵最为简单，前面说过，为了统一平移和旋转、缩放矩阵使用齐次坐标，而齐次坐标的最后一列所对应的就是平移矩阵。我们直接给出平移矩阵：
 <span class="math display">$$
-\begin{pmatrix}
-1 &amp; 0 &amp; 0 &amp;S_x \\
-0 &amp; 1 &amp; 0 &amp;S_y\\
-0 &amp; 0 &amp; 1 &amp;S_z\\
+T_m=\begin{pmatrix}
+1 &amp; 0 &amp; 0 &amp;T_x \\
+0 &amp; 1 &amp; 0 &amp;T_y\\
+0 &amp; 0 &amp; 1 &amp;T_z\\
 0&amp;0&amp;0&amp;1
 \end{pmatrix}
 $$</span> <span
-class="math inline"><em>S</em><sub><em>x</em></sub></span>，<span
-class="math inline"><em>S</em><sub><em>y</em></sub></span>，<span
-class="math inline"><em>S</em><sub><em>z</em></sub></span>所对应的就是unity中Transform的平移的XYZ值。我们直接将<span
-class="math inline"><em>S</em><sub><em>x</em></sub></span>，<span
-class="math inline"><em>S</em><sub><em>y</em></sub></span>，<span
-class="math inline"><em>S</em><sub><em>z</em></sub></span>分别与点坐标的XYZ相加就好。</p>
+class="math inline"><em>T</em><sub><em>x</em></sub></span>，<span
+class="math inline"><em>T</em><sub><em>y</em></sub></span>，<span
+class="math inline"><em>T</em><sub><em>z</em></sub></span>所对应的就是unity中Transform的平移的XYZ值。我们直接将<span
+class="math inline"><em>T</em><sub><em>x</em></sub></span>，<span
+class="math inline"><em>T</em><sub><em>y</em></sub></span>，<span
+class="math inline"><em>T</em><sub><em>z</em></sub></span>分别与点坐标的XYZ相加就好。</p>
 <p>需要注意的是，我们在进行所有变换的时候一定要注意顺序，一定要按照缩放—旋转—平移的顺序来做，否则的话会得到不正确的结果。先旋转再平移和先平移再旋转为例：</p>
 <p><img src="geogebra-export.png" /></p>
 <p>蓝色为原图形，红色是先旋转再平移后的结果，而绿色则是先平移再旋转的结果，可以看到：绿色的图形先平移之后还以原点为中心进行旋转导致我们得到了错误的结果。</p>
+<p>最后，我们将组合一下模型矩阵：<span
+class="math inline"><em>M</em><sub><em>m</em></sub> = <em>T</em><sub><em>m</em></sub><em>R</em><sub><em>m</em></sub><em>S</em><sub><em>m</em></sub></span></p>
+<h1 id="v矩阵视图矩阵">3.V矩阵—视图矩阵</h1>
+<p>V矩阵的作用是将世界空间中的物体变换到视空间，也就是以摄象机为原点的空间。这里的变换就不涉及缩放，只有平移和旋转操作。接下来是对V矩阵的推导，使用Games101中的办法。</p>
+<p>首先我们需要定义一个摄象机就需要如下属性：位置、朝向、向上方向。位置和朝向很好理解，不同位置，不同朝向的摄象机拍出的画面肯定是不同的，而向上方向则是来确定摄象机拍摄的角度。如下图所示：</p>
+<p><img src="Snipaste_2025-07-28_13-51-07.png" /></p>
+<p>有了摄象机我们就可以拍摄世界空间中的物体了，我们可以将摄象机摆在世界空间的任意位置，然后旋转任意方向来拍摄，然后通过位置和旋转信息来计算V矩阵。但是这样计算比较麻烦，我们可以这样想，如果我们把摄象机摆一个标准位置：既世界空间的原点，镜头朝向-Z，向上方向是Y轴方向，然后移动整个世界空间的物体，让它们同样按照刚才摄象机移动到标准位置的方式移动，这样实际上摄象机与整个场景中的物体相对运动是不变的，拍出来的效果是一样的。所以我们直接求得摄象机向标准位置移动的矩阵，也就顺便求出了整个V矩阵。</p>
+<p>如图所示：我们要将右面的坐标移动到左下面的标准坐标，其中向量<span
+class="math inline"><em>e⃗</em></span>是相机移动的方向，向量<span
+class="math inline"><em>ĝ</em></span>与<span
+class="math inline"><em>t̂</em></span>分别表示摄象机的朝向与向上方向</p>
+<p><img src="Snipaste_2025-07-28_14-17-36.png" /></p>
+<p>第一步很简单，就是直接将摄象机移动到原点，我们只需要将摄象机移动的方向取反就好了：
+<span class="math display">$$
+T_v=
+\begin{pmatrix}
+1 &amp; 0 &amp; 0 &amp;-x_e \\
+0 &amp; 1 &amp; 0 &amp;-y_e\\
+0 &amp; 0 &amp; 1 &amp;-z_e\\
+0&amp;0&amp;0&amp;1
+\end{pmatrix}
+$$</span> 接下来我们要做的是将<span
+class="math inline"><em>ĝ</em></span>旋转到世界空间-z轴方向，将<span
+class="math inline"><em>t̂</em></span>旋转到世界空间Y轴方向。但是这样做比较困难，我们可以先求从-z方向变换到<span
+class="math inline"><em>ĝ</em></span>方向，从y方向变换到<span
+class="math inline"><em>t̂</em></span>方向，x轴变换到<span
+class="math inline"><em>ĝ</em> × <em>t̂</em></span>方向的矩阵，易得：
+<span class="math display">$$
+\begin{pmatrix}
+x_{\hat{g}\times\hat{t}} &amp; x_t &amp; x_{-g} &amp; 0\\
+y_{\hat{g}\times\hat{t}} &amp; y_t &amp; y_{-g} &amp; 0\\
+z_{\hat{g}\times\hat{t}} &amp; z_t &amp; z_{-g} &amp; 0\\
+0&amp;0&amp;0&amp;1
+\end{pmatrix}
+$$</span>
+我们只需要将这个矩阵求个逆变换就可以得到我们需要的矩阵，而旋转矩阵是个正交矩阵，他的转置就等于逆变换，所以我们转置即可得到v矩阵的旋转矩阵：
+<span class="math display">$$
+R_v=
+\begin{pmatrix}
+x_{\hat{g}\times\hat{t}}&amp;y_{\hat{g}\times\hat{t}}&amp;z_{\hat{g}\times\hat{t}}&amp;0\\
+x_t&amp;y_t&amp;z_t&amp;0\\
+x_{-g}&amp;y_{-g}&amp;z_{-g}&amp;0\\
+0&amp;0&amp;0&amp;1
+\end{pmatrix}
+$$</span></p>
+<p>这样我们就得到了V矩阵：<span
+class="math inline"><em>M</em><sub><em>v</em></sub> = <em>R</em><sub><em>v</em></sub><em>T</em><sub><em>v</em></sub></span>，也可以将两个矩阵写在一起（当平移矩阵和其他矩阵写在一起的时候视作先进行平移矩阵，在进行其他矩阵）：
+<span class="math display">$$
+M_v=
+\begin{pmatrix}
+x_{\hat{g}\times\hat{t}}&amp;y_{\hat{g}\times\hat{t}}&amp;z_{\hat{g}\times\hat{t}}&amp;-x_e\\
+x_t&amp;y_t&amp;z_t&amp;-y_e\\
+x_{-g}&amp;y_{-g}&amp;z_{-g}&amp;-z_e\\
+0&amp;0&amp;0&amp;1
+\end{pmatrix}
+$$</span>
+观察这个矩阵我们也可以拿到一些信息：<strong>他的第二行前三个数就是摄象机的向上方向，第三行三个数就是摄象机朝向，最后一列是摄象机的世界空间坐标的反向</strong>，我们就可以通过访问视图矩阵来拿到一些信息来做一些效果。此外，视空间顶点的z值就是这点的深度值，我们可以通过这个方式来计算深度。</p>
+<h1 id="投影矩阵">4.投影矩阵</h1>
 
     </div>
     
