@@ -3,7 +3,7 @@
 <html lang="zh">
 <head>
     <meta charset="utf-8" />
-    <title>Tags: 图形学基础 | 枫雪のHome</title>
+    <title>后处理描边 | 枫雪のHome</title>
     <meta name="author" content="枫雪" />
     <meta name="description" content="Elysia love" />
     <meta name="keywords" content="" />
@@ -42,6 +42,10 @@
 
 
 <script src="/js/lib/preview.js"></script>
+
+
+
+
 
 
 
@@ -155,85 +159,72 @@
 </transition>
 
         <div id="main" :class="loading ? 'into-enter-from': 'into-enter-active'">
-            <div id="archives">
-    
-    <div class="categories-tags">
+            <div class="article">
+    <div>
+        <h1>后处理描边</h1>
+    </div>
+    <div class="info">
+        <span class="date">
+            <span class="icon">
+                <i class="fa-solid fa-calendar fa-fw"></i>
+            </span>
+            2025/9/19
+        </span>
         
-        
-        
-        <span>
-            <a href="/tags/%E5%9B%BE%E5%BD%A2%E5%AD%A6%E5%9F%BA%E7%A1%80/" style="background: linear-gradient(120deg, #9abbf7 0%, #ffbbf4 100%)">
+        <span class="category">
+            <a href="/categories/%E6%8A%80%E6%9C%AF/">
                 <span class="icon">
-                    <i class="fa-solid fa-tags fa-fw"></i>
+                    <i class="fa-solid fa-bookmark fa-fw"></i>
                 </span>
-                图形学基础
+                技术
             </a>
         </span>
         
         
-        
-        
-        
-        <span>
-            <a href="/tags/%E6%8A%80%E6%9C%AF%E5%AE%9E%E7%8E%B0/" style="background: #00bcd4">
-                <span class="icon">
-                    <i class="fa-solid fa-tags fa-fw"></i>
-                </span>
-                技术实现
-            </a>
+        <span class="tags">
+            <span class="icon">
+                <i class="fa-solid fa-tags fa-fw"></i>
+            </span>
+            
+            
+            <span class="tag">
+                
+                <a href="/tags/%E6%8A%80%E6%9C%AF%E5%AE%9E%E7%8E%B0/" style="color: #ff7d73">
+                    技术实现
+                </a>
+            </span>
+            
         </span>
-        
-        
-        
-        <span>
-            <a href="/tags/%E5%BB%B6%E8%BF%9F%E7%AE%A1%E7%BA%BF/" style="background: #03a9f4">
-                <span class="icon">
-                    <i class="fa-solid fa-tags fa-fw"></i>
-                </span>
-                延迟管线
-            </a>
-        </span>
-        
         
     </div>
     
-    <div class="timeline">
-        <div class="timeline-tail"></div>
-        <div class="timeline-content">
-            <div class="item-time">2025/7/7</div>
-            <a href="/2025/07/07/MVP%E7%9F%A9%E9%98%B5/">
-                <h3>MVP矩阵</h3>
-            </a>
-            <div class="info">
-                
-                <span class="category">
-                    <a href="/categories/%E6%8A%80%E6%9C%AF/">
-                        <span class="icon">
-                            <i class="fa-solid fa-bookmark fa-fw"></i>
-                        </span>
-                        技术
-                    </a>
-                </span>
-                
-                
-                <span class="tags">
-                    <span class="icon">
-                        <i class="fa-solid fa-tags fa-fw"></i>
-                    </span>
-                    
-                    
-                    <span class="tag">
-                        
-                        <a href="/tags/%E5%9B%BE%E5%BD%A2%E5%AD%A6%E5%9F%BA%E7%A1%80/" style="color: #00a596">
-                            图形学基础
-                        </a>
-                    </span>
-                    
-                </span>
-                
-            </div>
-        </div>
+    <div class="content" v-pre>
+        <p>本篇是后处理描边的开发日记——挖坑施工中</p>
+<span id="more"></span>
+<h1 id="参考">1.参考</h1>
+<p>模仿对象为虚幻引擎技术分享日中幻塔对场景描边的实现相关链接如下：<a
+target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1rW2LYvEox?t=1257.8">用虚幻引擎5为《幻塔》定制高品质动画流程风格化渲染管线</a>。其中有几个技术点:</p>
+<p>1.深度法线描边，根据深度值和法线做相关计算，深度剧烈变化处会被判断为描边</p>
+<p>2.Mesh ID变化处会被检测为描边（这个不太清楚，需要重点查一下）</p>
+<p>3.模仿幻塔的管线，根据场景深度对描边做3等级的区分，使用合适的描边手段，让结果看起来更加自然</p>
+<h1 id="ps.一些小记录">PS.一些小记录</h1>
+<h2
+id="关于深度图的获取和两个深度图的解码函数">1.关于深度图的获取和两个深度图的解码函数</h2>
+<p>这两个函数分别是</p>
+<p>Linear01Depth(float z)与LinearEyeDepth(float
+z)，暂时粗浅的理解：前者的深度值为0~1之间的线性深度值，后者的深度值约等于视空间的z值。</p>
+
     </div>
+    
+    
+    
+    
+    <div id="comment">
+        <div id="giscus-container" class="giscus"></div>
+    </div>
+    
+    
+    
     
 </div>
 
@@ -265,6 +256,29 @@
         
     </div>
     <script src="/js/main.js"></script>
+    
+    
+<script
+    src="https://giscus.app/client.js"
+    data-repo="HLsama/HLsama.github.io"
+    data-repo-id="R_kgDOPEFGjQ"
+    data-category="Announcements"
+    data-category-id="DIC_kwDOPEFGjc4Csi-O"
+    data-mapping="pathname"
+    data-strict="0"
+    data-reactions-enabled="1"
+    data-emit-metadata="0"
+    data-input-position="bottom"
+    data-theme="preferred_color_scheme"
+    data-lang="zh-CN"
+    crossorigin
+    async
+></script>
+
+
+
+
+
     
 </body>
 </html>
