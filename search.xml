@@ -4,11 +4,11 @@
   
     
     <entry>
-      <title>Hexo博客使用指南（自用版）</title>
-      <link href="/2026/02/16/Hexo%E5%8D%9A%E5%AE%A2%E4%BD%BF%E7%94%A8%E6%8C%87%E5%8D%97%EF%BC%88%E8%87%AA%E7%94%A8%E7%89%88%EF%BC%89/"/>
-      <url>/2026/02/16/Hexo%E5%8D%9A%E5%AE%A2%E4%BD%BF%E7%94%A8%E6%8C%87%E5%8D%97%EF%BC%88%E8%87%AA%E7%94%A8%E7%89%88%EF%BC%89/</url>
+      <title>Hexo博客使用指南</title>
+      <link href="/2026/02/16/Hexo%E5%8D%9A%E5%AE%A2%E4%BD%BF%E7%94%A8%E6%8C%87%E5%8D%97/"/>
+      <url>/2026/02/16/Hexo%E5%8D%9A%E5%AE%A2%E4%BD%BF%E7%94%A8%E6%8C%87%E5%8D%97/</url>
       
-        <content type="html"><![CDATA[<p>为了防止每次想写博客都忘记怎么使用，这里直接写个博客来记录使用流程</p><span id="more"></span><h1 id="从创建文章到上传">从创建文章到上传：</h1><p>首先来到博客的跟目录下，我的电脑是：新建卷D/ElysiaLove。然后右键空白处，点击OpenGit Bash Here。如下图所示：<imgsrc="Hexo博客使用指南（自用版）/Snipaste_2026-02-16_15-38-12.png" /></p><p>这样之后就可以创建一个命令框，我们使用各种指令来上传：</p><p><imgsrc="Hexo博客使用指南（自用版）/Snipaste_2026-02-16_15-46-52.png" /></p><p>然后就可以开始创建文章了。</p><p>首先是创建文章的命令：hexo new“文章标题”。敲完回车就行，新建的文章会保存在_posts下，其中.md文件是文章本体，打开后即可编辑，同名文件夹是储存这个文章所需图片的地方。</p><p><imgsrc="Hexo博客使用指南（自用版）/Snipaste_2026-02-16_15-52-00.png" /></p><p>写好文章就可以在命令框内敲：hexo g。它会生成静态的文章文件。</p><p>如果想要预览的话就接着：hexos。他可以生成个链接，在本地预览这个文章。</p><p>如果没有问题的话就：hexo d。将其部署到Git上。</p>]]></content>
+        <content type="html"><![CDATA[<p>为了防止每次想写博客都忘记怎么使用，这里直接写个博客来记录使用流程</p><span id="more"></span><h1 id="从创建文章到上传">从创建文章到上传：</h1><p>首先来到博客的跟目录下，我的电脑是：新建卷D/ElysiaLove。然后右键空白处，点击OpenGit Bash Here。</p><p>这样之后就可以创建一个命令框，我们使用各种指令来上传</p><p>然后就可以开始创建文章了。</p><p>首先是创建文章的命令：hexo new“文章标题”。敲完回车就行，新建的文章会保存在_posts下，其中.md文件是文章本体，打开后即可编辑，同名文件夹是储存这个文章所需图片的地方。</p><p>写好文章就可以在命令框内敲：hexo g。它会生成静态的文章文件。</p><p>如果想要预览的话就接着：hexos。他可以生成个链接，在本地预览这个文章。</p><p>如果没有问题的话就：hexo d。将其部署到Git上。</p>]]></content>
       
       
       <categories>
@@ -58,7 +58,7 @@
       <link href="/2025/07/12/%E5%A4%9APass%E7%9A%84%E6%AF%9B%E5%8F%91/"/>
       <url>/2025/07/12/%E5%A4%9APass%E7%9A%84%E6%AF%9B%E5%8F%91/</url>
       
-        <content type="html"><![CDATA[<p>挖坑施工中</p><span id="more"></span>]]></content>
+        <content type="html"><![CDATA[<p>挖坑施工中</p><span id="more"></span><p><img src="Snipaste_2026-02-16_15-52-00.png" /></p>]]></content>
       
       
       <categories>
