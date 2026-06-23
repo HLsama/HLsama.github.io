@@ -1,0 +1,309 @@
+
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="utf-8" />
+    <title>径向模糊 | 枫雪のHome</title>
+    <meta name="author" content="枫雪" />
+    <meta name="description" content="Elysia love" />
+    <meta name="keywords" content="" />
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"
+    />
+    <link rel="icon" href="/images/avatar.jpg" />
+    <link rel="preconnect" href="https://s4.zstatic.net" />
+<script src="https://s4.zstatic.net/ajax/libs/vue/3.3.7/vue.global.prod.min.js"></script>
+<link rel="stylesheet" href="https://s4.zstatic.net/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
+<link rel="preconnect" href="https://fonts.googleapis.cn" />
+<link rel="preconnect" href="https://fonts.gstatic.cn" crossorigin />
+<link
+    rel="stylesheet"
+    href="https://fonts.googleapis.cn/css2?family=Fira+Code:wght@400;500;600;700&family=Lexend:wght@400;500;600;700;800;900&family=Noto+Sans+SC:wght@400;500;600;700;800;900&display=swap"
+/>
+<script> const mixins = {}; </script>
+
+<script src="https://polyfill.alicdn.com/v3/polyfill.min.js?features=default"></script>
+
+
+<script src="https://s4.zstatic.net/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script src="https://s4.zstatic.net/ajax/libs/highlightjs-line-numbers.js/2.8.0/highlightjs-line-numbers.min.js"></script>
+<link
+    rel="stylesheet"
+    href="https://s4.zstatic.net/ajax/libs/highlight.js/11.9.0/styles/github.min.css"
+/>
+<script src="/js/lib/highlight.js"></script>
+
+
+<script src="https://s4.zstatic.net/ajax/libs/KaTeX/0.16.9/katex.min.js"></script>
+<script src="https://s4.zstatic.net/ajax/libs/KaTeX/0.16.9/contrib/auto-render.min.js"></script>
+<link rel="stylesheet" href="https://s4.zstatic.net/ajax/libs/KaTeX/0.16.9/katex.min.css" />
+<script src="/js/lib/math.js"></script>
+
+
+<script src="/js/lib/preview.js"></script>
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/css/main.css" />
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+<body>
+    <div id="layout">
+        <transition name="fade">
+            <div id="loading" v-show="loading">
+                <div id="loading-circle">
+                    <h2>LOADING</h2>
+                    <p>加载过慢请开启缓存 浏览器默认开启</p>
+                    <img src="/images/loading.gif" />
+                </div>
+            </div>
+        </transition>
+        <div id="menu" :class="{ hidden: hiddenMenu, 'menu-color': menuColor}">
+    <nav id="desktop-menu">
+        <a class="title" href="/">
+            <span>枫雪のHOME</span>
+        </a>
+        
+        <a href="/">
+            <i class="fa-solid fa-house fa-fw"></i>
+            <span>&ensp;主页</span>
+        </a>
+        
+        <a href="/about">
+            <i class="fa-solid fa-id-card fa-fw"></i>
+            <span>&ensp;关于我</span>
+        </a>
+        
+        <a href="/archives">
+            <i class="fa-solid fa-box-archive fa-fw"></i>
+            <span>&ensp;归档</span>
+        </a>
+        
+        <a href="/categories">
+            <i class="fa-solid fa-bookmark fa-fw"></i>
+            <span>&ensp;分类</span>
+        </a>
+        
+        <a href="/tags">
+            <i class="fa-solid fa-tags fa-fw"></i>
+            <span>&ensp;标签</span>
+        </a>
+        
+    </nav>
+    <nav id="mobile-menu">
+        <div class="title" @click="showMenuItems = !showMenuItems">
+            <i class="fa-solid fa-bars fa-fw"></i>
+            <span>&emsp;枫雪のHOME</span>
+        </div>
+        <transition name="slide">
+            <div class="items" v-show="showMenuItems">
+                
+                <a href="/">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-house fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">主页</div>
+                    </div>
+                </a>
+                
+                <a href="/about">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-id-card fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">关于我</div>
+                    </div>
+                </a>
+                
+                <a href="/archives">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-box-archive fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">归档</div>
+                    </div>
+                </a>
+                
+                <a href="/categories">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-bookmark fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">分类</div>
+                    </div>
+                </a>
+                
+                <a href="/tags">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-tags fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">标签</div>
+                    </div>
+                </a>
+                
+            </div>
+        </transition>
+    </nav>
+</div>
+<transition name="fade">
+    <div id="menu-curtain" @click="showMenuItems = !showMenuItems" v-show="showMenuItems"></div>
+</transition>
+
+        <div id="main" :class="loading ? 'into-enter-from': 'into-enter-active'">
+            <div class="article">
+    <div>
+        <h1>径向模糊</h1>
+    </div>
+    <div class="info">
+        <span class="date">
+            <span class="icon">
+                <i class="fa-solid fa-calendar fa-fw"></i>
+            </span>
+            2026/3/14
+        </span>
+        
+        <span class="category">
+            <a href="/categories/%E6%8A%80%E6%9C%AF/">
+                <span class="icon">
+                    <i class="fa-solid fa-bookmark fa-fw"></i>
+                </span>
+                技术
+            </a>
+        </span>
+        
+        
+        <span class="tags">
+            <span class="icon">
+                <i class="fa-solid fa-tags fa-fw"></i>
+            </span>
+            
+            
+            <span class="tag">
+                
+                <a href="/tags/UI/" style="color: #ff7d73">
+                    UI
+                </a>
+            </span>
+            
+        </span>
+        
+    </div>
+    
+    <div class="content" v-pre>
+        <p>本次的内容是径向模糊，它在表现加速度等场合非常常用，由于shader使用起来并不复杂，就直接介绍原理了。</p>
+<p>unity版本：Unity6000.062f1</p>
+<span id="more"></span>
+<h1 id="径向模糊原理">径向模糊原理</h1>
+<p>其实在原理介绍方面也没太多的点可说，这次就不分点了。</p>
+<p>径向模糊的原理比较直接，首先选取一个模糊中心，然后对每个采样点的UV基于这个模糊中心进行偏移，并进行一定次数的迭代采样，最终将采样得到的RGB值累加，并除以迭代次数。</p>
+<p>核心代码如下：</p>
+<pre><code>float2 dir = (float2(_X,_Y)-IN.texcoord)*_BlurRadius*0.01;
+
+float4 color = 0;
+for(int t=0;t&lt;_Iteration;t++)
+&#123;
+    color += tex2D(_MainTex,(IN.texcoord - 0.5) * _UVScale + 0.5);
+    IN.texcoord+=dir;
+&#125;
+color = color/_Iteration;</code></pre>
+<p>其中 _X与
+_Y共同构成了偏移的中心，而每个像素的UV值，可以看作以UV原点为原点的向量，如果想要将偏移中心设置为图像正中心的话，就需要将X与Y的值设置为（0.5，0.5）。</p>
+<p>__BlurRadius则是每次迭代时偏移的距离。然后我们迭代采样，每次迭代的时候朝着偏移值方向偏移一步，不断循环的话，就可以得到径向模糊了。当然，由于每个像素是不断累计叠加的，不做处理会让图像过曝，此时我们需要将最终的像素值除以循环次数，来让图像的值回到正常。此外，UI的画布大小是有限的，如果不做限制的话
+，就会粗暴的截断，导致穿帮。如图所示：</p>
+<figure>
+<img src="/2026/03/14/%E5%BE%84%E5%90%91%E6%A8%A1%E7%B3%8A/image-20260315115342374.png" alt="image-20260315115342374">
+<figcaption aria-hidden="true">image-20260315115342374</figcaption>
+</figure>
+<p>所以使用了 _UVScale值来调整UV在画布中所占的比例
+，以呈现完整的图像。</p>
+<p>调整之后：</p>
+<figure>
+<img src="/2026/03/14/%E5%BE%84%E5%90%91%E6%A8%A1%E7%B3%8A/image-20260315115454070.png" alt="image-20260315115454070">
+<figcaption aria-hidden="true">image-20260315115454070</figcaption>
+</figure>
+<p>为了更好的让人理解径向模糊的原理，我们可以限定参数来看效果。</p>
+<p>首先是关于XY值：下图是迭代次数为2的时候不同XY值的影响。</p>
+<video src="./径向模糊/Desktop 2026.03.15 - 11.58.33.01.mp4" controls>
+</video>
+<p>可以看到它类似于将图像复制了一份，然后移动，那么随着迭代次数增多，会有怎样的效果呢？</p>
+<video src="./径向模糊/Desktop 2026.03.15 - 12.29.52.02.mp4" controls>
+</video>
+<p>实际上就是在每次将图像复制一份的同时又朝向固定方向偏移了以下。需要注意的是，过多的迭代次数实际上就是多次采样贴图会导致性能的下降，实际使用的时候要考虑到这一点。</p>
+
+    </div>
+    
+    
+    
+    
+    <div id="comment">
+        <div id="giscus-container" class="giscus"></div>
+    </div>
+    
+    
+    
+    
+</div>
+
+            <footer id="footer">
+    <div id="footer-wrap">
+        <div>
+            &copy;
+            2022 - 2026 枫雪のHome
+            <span id="footer-icon">
+                <i class="fa-solid fa-font-awesome fa-fw"></i>
+            </span>
+            &commat;枫雪
+        </div>
+        <div>
+            Based on the <a target="_blank" rel="noopener" href="https://hexo.io">Hexo Engine</a> &amp;
+            <a target="_blank" rel="noopener" href="https://github.com/theme-particlex/hexo-theme-particlex">ParticleX Theme</a>
+        </div>
+        
+    </div>
+</footer>
+
+        </div>
+        
+        <transition name="fade">
+            <div id="preview" ref="preview" v-show="previewShow">
+                <img id="preview-content" ref="previewContent" />
+            </div>
+        </transition>
+        
+    </div>
+    <script src="/js/main.js"></script>
+    
+    
+<script
+    src="https://giscus.app/client.js"
+    data-repo="HLsama/HLsama.github.io"
+    data-repo-id="R_kgDOPEFGjQ"
+    data-category="Announcements"
+    data-category-id="DIC_kwDOPEFGjc4Csi-O"
+    data-mapping="pathname"
+    data-strict="0"
+    data-reactions-enabled="1"
+    data-emit-metadata="0"
+    data-input-position="bottom"
+    data-theme="preferred_color_scheme"
+    data-lang="zh-CN"
+    crossorigin
+    async
+></script>
+
+
+
+
+
+    
+</body>
+</html>

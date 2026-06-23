@@ -205,9 +205,7 @@
 <h2 id="修改管线">1.修改管线</h2>
 <p>由于我们直接修改URP的代码会被自动改回去，为了让我们修改的代码能够保存，我们要将项目文件夹下Library.unity.render-pipelines.universal@14.0.10剪切到项目文件夹下的Packages文件中</p>
 <figure>
-<img
-src="https://pic3.zhimg.com/v2-516719dabacc80da231d746dec57d59a_1440w.jpg"
-alt="img" />
+<img src="https://pic3.zhimg.com/v2-516719dabacc80da231d746dec57d59a_1440w.jpg" alt="img">
 <figcaption aria-hidden="true">img</figcaption>
 </figure>
 <p>从左边到右边</p>
@@ -215,33 +213,24 @@ alt="img" />
 <h2 id="设置延迟管线">2.设置延迟管线</h2>
 <p>想自定义延迟管线的话第一步当然是先改成延迟管线，我们依次点击Edit-ProjectSettings，在Graphics中应该能看到有个选择当前管线的地方，点一下，就能定位到当前使用的管线。</p>
 <figure>
-<img
-src="https://pic4.zhimg.com/v2-a42fdb2b35315ce8ce8e568d94248333_1440w.jpg"
-alt="img" />
+<img src="https://pic4.zhimg.com/v2-a42fdb2b35315ce8ce8e568d94248333_1440w.jpg" alt="img">
 <figcaption aria-hidden="true">img</figcaption>
 </figure>
 <p>就是这里</p>
 <p>然后再点击这个管线的RendererList，就能找到修改为延迟管线的地方</p>
 <figure>
-<img
-src="https://picx.zhimg.com/v2-8dd3596618902ff73bb8891db5d6ac31_1440w.jpg"
-alt="img" />
+<img src="https://picx.zhimg.com/v2-8dd3596618902ff73bb8891db5d6ac31_1440w.jpg" alt="img">
 <figcaption aria-hidden="true">img</figcaption>
 </figure>
 <p>然后RenderingPath从Forward改为Deferred</p>
 <figure>
-<img
-src="https://pic2.zhimg.com/v2-bd386f609edb34736594013a1614867f_1440w.jpg"
-alt="img" />
+<img src="https://pic2.zhimg.com/v2-bd386f609edb34736594013a1614867f_1440w.jpg" alt="img">
 <figcaption aria-hidden="true">img</figcaption>
 </figure>
-<h2 id="gbufferpass">3.<a
-target="_blank" rel="noopener" href="https://zhida.zhihu.com/search?content_id=247600342&amp;content_type=Article&amp;match_order=1&amp;q=GbufferPass&amp;zhida_source=entity">GbufferPass</a></h2>
-<p>总所周知，延迟渲染主要由传递数据的GbufferPass和计算光照的<a
-target="_blank" rel="noopener" href="https://zhida.zhihu.com/search?content_id=247600342&amp;content_type=Article&amp;match_order=1&amp;q=LightPass&amp;zhida_source=entity">LightPass</a>组成。这里我们先讲GbufferPass。</p>
+<h2 id="gbufferpass">3.<a target="_blank" rel="noopener" href="https://zhida.zhihu.com/search?content_id=247600342&amp;content_type=Article&amp;match_order=1&amp;q=GbufferPass&amp;zhida_source=entity">GbufferPass</a></h2>
+<p>总所周知，延迟渲染主要由传递数据的GbufferPass和计算光照的<a target="_blank" rel="noopener" href="https://zhida.zhihu.com/search?content_id=247600342&amp;content_type=Article&amp;match_order=1&amp;q=LightPass&amp;zhida_source=entity">LightPass</a>组成。这里我们先讲GbufferPass。</p>
 <p>untiy没给统一的URPshader模板，这里先给个我的URP模板方便后续更改：</p>
-<div class="sourceCode" id="cb1"><pre
-class="sourceCode glsl"><code class="sourceCode glsl"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>Shader &quot;Gbuffer&quot;</span>
+<div class="sourceCode" id="cb1"><pre class="sourceCode glsl"><code class="sourceCode glsl"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>Shader &quot;Gbuffer&quot;</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="op">&#123;</span></span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>    Properties</span>
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>    <span class="op">&#123;</span></span>
@@ -306,14 +295,11 @@ class="sourceCode glsl"><code class="sourceCode glsl"><span id="cb1-1"><a href="
 <span id="cb1-63"><a href="#cb1-63" aria-hidden="true" tabindex="-1"></a><span class="op">&#125;</span></span></code></pre></div>
 <p>URP会将所有LightMode为UniversalGBuffer的shader作为Gbuffer阶段的shader，所以我们首先修改LightMode</p>
 <figure>
-<img
-src="https://pica.zhimg.com/v2-3f2b78d376806d1e291dd76f2fa4ea48_1440w.jpg"
-alt="img" />
+<img src="https://pica.zhimg.com/v2-3f2b78d376806d1e291dd76f2fa4ea48_1440w.jpg" alt="img">
 <figcaption aria-hidden="true">img</figcaption>
 </figure>
 <p>总所周知：Gbuffer有4个，分别输出不同的信息用于后续的光照计算，我们创建个结构体，用于输出4个Gbuffer</p>
-<div class="sourceCode" id="cb2"><pre
-class="sourceCode glsl"><code class="sourceCode glsl"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co">//将Gubffer打包成结构体输出</span></span>
+<div class="sourceCode" id="cb2"><pre class="sourceCode glsl"><code class="sourceCode glsl"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co">//将Gubffer打包成结构体输出</span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>            <span class="kw">struct</span> DeferredOutPut<span class="op">&#123;</span></span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>                float4 gBuffer0 <span class="op">:</span> SV_TARGET0<span class="op">;</span></span>
 <span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>                float4 gBuffer1 <span class="op">:</span> SV_TARGET1<span class="op">;</span></span>
@@ -321,8 +307,7 @@ class="sourceCode glsl"><code class="sourceCode glsl"><span id="cb2-1"><a href="
 <span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>                float4 gBuffer3 <span class="op">:</span> SV_TARGET3<span class="op">;</span></span>
 <span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>            <span class="op">&#125;;</span></span></code></pre></div>
 <p>然后我们相应的修改我们的片源着色器，这里我只是往4个Buffer中塞了一堆1</p>
-<div class="sourceCode" id="cb3"><pre
-class="sourceCode glsl"><code class="sourceCode glsl"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>            DeferredOutPut <span class="fu">frag</span><span class="op">(</span>v2f i<span class="op">)</span> <span class="op">:</span> SV_Target</span>
+<div class="sourceCode" id="cb3"><pre class="sourceCode glsl"><code class="sourceCode glsl"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>            DeferredOutPut <span class="fu">frag</span><span class="op">(</span>v2f i<span class="op">)</span> <span class="op">:</span> SV_Target</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>       <span class="op">&#123;</span></span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>        DeferredOutPut g<span class="op">;</span></span>
 <span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>                <span class="co">//贴图采样</span></span>
@@ -336,45 +321,34 @@ class="sourceCode glsl"><code class="sourceCode glsl"><span id="cb3-1"><a href="
 <p>这四个Buffer官方给的精度各不相同，用于应对不同的数据，官方的做法是Gbuffer0：RGB漫反射，A：材质ID？（不确定，不懂是干什么用的），Gbuffer1：RGB高光，A：AO
 ，Gbuffer2：RGB法线，A：光滑度，Gbuffer3：RGB环境光和自发光，A：无（是个1）。</p>
 <figure>
-<img
-src="https://picx.zhimg.com/v2-cda10c00dea630f9f06268a80c3615a7_1440w.jpg"
-alt="img" />
+<img src="https://picx.zhimg.com/v2-cda10c00dea630f9f06268a80c3615a7_1440w.jpg" alt="img">
 <figcaption aria-hidden="true">img</figcaption>
 </figure>
 <p>官方的输出</p>
 <p>我们可以在FrameDebugger中看到它们各自的精度：</p>
 <figure>
-<img
-src="https://pic2.zhimg.com/v2-e1c57a1a17d0befb752fd478bf9a9117_1440w.jpg"
-alt="img" />
+<img src="https://pic2.zhimg.com/v2-e1c57a1a17d0befb752fd478bf9a9117_1440w.jpg" alt="img">
 <figcaption aria-hidden="true">img</figcaption>
 </figure>
 <p>Gbuffer0</p>
 <figure>
-<img
-src="https://pic4.zhimg.com/v2-2ae8726950e8176bda68f44d2b33a935_1440w.jpg"
-alt="img" />
+<img src="https://pic4.zhimg.com/v2-2ae8726950e8176bda68f44d2b33a935_1440w.jpg" alt="img">
 <figcaption aria-hidden="true">img</figcaption>
 </figure>
 <p>Gbuffer1</p>
 <figure>
-<img
-src="https://picx.zhimg.com/v2-6dd1d116130b2ee343f21813ae2faf4f_1440w.jpg"
-alt="img" />
+<img src="https://picx.zhimg.com/v2-6dd1d116130b2ee343f21813ae2faf4f_1440w.jpg" alt="img">
 <figcaption aria-hidden="true">img</figcaption>
 </figure>
 <p>Gbuffer2</p>
 <figure>
-<img
-src="https://picx.zhimg.com/v2-75fa58529419d89add7dc28fa977af1b_1440w.jpg"
-alt="img" />
+<img src="https://picx.zhimg.com/v2-75fa58529419d89add7dc28fa977af1b_1440w.jpg" alt="img">
 <figcaption aria-hidden="true">img</figcaption>
 </figure>
 <p>Gbuffer3</p>
 <p>可以看到Gbuffer3的精度给的最高，因为他考虑到环境光和自发光可能需要HDR，并且没A通道，所以想往A通道塞东西得改代码（后面会说）。</p>
 <p>完整的Gbuffer部分：</p>
-<div class="sourceCode" id="cb4"><pre
-class="sourceCode glsl"><code class="sourceCode glsl"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>Shader &quot;Gbuffer&quot;</span>
+<div class="sourceCode" id="cb4"><pre class="sourceCode glsl"><code class="sourceCode glsl"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>Shader &quot;Gbuffer&quot;</span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="op">&#123;</span></span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>    Properties</span>
 <span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>    <span class="op">&#123;</span></span>
@@ -455,76 +429,57 @@ class="sourceCode glsl"><code class="sourceCode glsl"><span id="cb4-1"><a href="
 <p>老的渲染管线可以自己写个LightPass然后在untiy中直接替换，但URP中却不能用这样的方式，所以我们直接去修改URP的shader（其实是有别的方式，可以用自己的shader，但我不会）。</p>
 <p>我们去翻FrameDebugger，直接打开URP的LightPass</p>
 <figure>
-<img
-src="https://pic2.zhimg.com/v2-a55ec232c61700d6964ef9182bb9eb75_1440w.jpg"
-alt="img" />
+<img src="https://pic2.zhimg.com/v2-a55ec232c61700d6964ef9182bb9eb75_1440w.jpg" alt="img">
 <figcaption aria-hidden="true">img</figcaption>
 </figure>
 <p>直接点那个shader就能定位到位置</p>
 <p>他是一个700多行的shader，挺多，别慌，其实untiy用到的就是其中的一两个Pass，也就是3，4Pass，这点也可以在FrameDebugger中看到：</p>
 <figure>
-<img
-src="https://pic4.zhimg.com/v2-1cfa5b1a2109998748cc0dff6d24b9a5_1440w.jpg"
-alt="img" />
+<img src="https://pic4.zhimg.com/v2-1cfa5b1a2109998748cc0dff6d24b9a5_1440w.jpg" alt="img">
 <figcaption aria-hidden="true">img</figcaption>
 </figure>
 <p>URP所使用的Pass</p>
 <p>我们打开那个shader看看这俩pass分别写了什么：</p>
 <figure>
-<img
-src="https://pic4.zhimg.com/v2-614bf4388f77385295225598de3f6f8d_1440w.jpg"
-alt="img" />
+<img src="https://pic4.zhimg.com/v2-614bf4388f77385295225598de3f6f8d_1440w.jpg" alt="img">
 <figcaption aria-hidden="true">img</figcaption>
 </figure>
 <figure>
-<img
-src="https://pic1.zhimg.com/v2-3e285dcc38e15de599ed346636cb101e_1440w.jpg"
-alt="img" />
+<img src="https://pic1.zhimg.com/v2-3e285dcc38e15de599ed346636cb101e_1440w.jpg" alt="img">
 <figcaption aria-hidden="true">img</figcaption>
 </figure>
 <p>关键在于红框的位置，注释部分标明了这个pass的用途，下面则写了他所使用的顶点片源着色器，这两个pass所使用的片源着色器是相同的，这就方便了我们的修改，我们的目的正是修改片源着色器的部分</p>
 <figure>
-<img
-src="https://picx.zhimg.com/v2-4a75f4b665da8e9a976777e710c97cdf_1440w.jpg"
-alt="img" />
+<img src="https://picx.zhimg.com/v2-4a75f4b665da8e9a976777e710c97cdf_1440w.jpg" alt="img">
 <figcaption aria-hidden="true">img</figcaption>
 </figure>
 <p>URP的片源着色器部分</p>
 <figure>
-<img
-src="https://pic2.zhimg.com/v2-8dd35308d5c1eedcb9cf977095f16ec7_1440w.jpg"
-alt="img" />
+<img src="https://pic2.zhimg.com/v2-8dd35308d5c1eedcb9cf977095f16ec7_1440w.jpg" alt="img">
 <figcaption aria-hidden="true">img</figcaption>
 </figure>
 <p>接上图</p>
 <figure>
-<img
-src="https://pica.zhimg.com/v2-52418289d6beca87d1b5dc6bfcc4c162_1440w.jpg"
-alt="img" />
+<img src="https://pica.zhimg.com/v2-52418289d6beca87d1b5dc6bfcc4c162_1440w.jpg" alt="img">
 <figcaption aria-hidden="true">img</figcaption>
 </figure>
 <p>接上图</p>
 <p>其中有各种乱七八糟的宏来定义各种情况，咱不用管，关键在于两个地方：其一是采样Gbuffer的方式，我们可以直接用URP的</p>
 <figure>
-<img
-src="https://pic2.zhimg.com/v2-9f380795257610956a5bec27ef33508f_1440w.jpg"
-alt="img" />
+<img src="https://pic2.zhimg.com/v2-9f380795257610956a5bec27ef33508f_1440w.jpg" alt="img">
 <figcaption aria-hidden="true">img</figcaption>
 </figure>
 <p>这里是3个Gbuffer和一个深度</p>
 <p>可以看到unity只采样了前3个buffer，而gbuffer3却没有采样。这是因为unity会自动将gbuffer3给加到最后的return中，这点需要注意，我们在计算的过程中别再加一遍gbuffer3的数值了，也意味着gbuffer3只能存一些能直接加的东西，一些花里胡哨的东西就别往gbuffer3里存了。</p>
 <p>第二个关键点在于深度图重构世界坐标的方式，我们可以直接用unity的方式：</p>
 <figure>
-<img
-src="https://pic2.zhimg.com/v2-d7ab327ed5d028844f4a60664a1f15e5_1440w.jpg"
-alt="img" />
+<img src="https://pic2.zhimg.com/v2-d7ab327ed5d028844f4a60664a1f15e5_1440w.jpg" alt="img">
 <figcaption aria-hidden="true">img</figcaption>
 </figure>
 <p>深度图重构世界坐标</p>
 <p>其中eyeIndex是关于适配xr的，我们不去管xr，直接把eyeIndex改成0，他是我们正常使用的矩阵</p>
 <p>剩下的地方咱删了自己写：</p>
-<div class="sourceCode" id="cb5"><pre
-class="sourceCode glsl"><code class="sourceCode glsl"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>    half4 <span class="fu">DeferredShading</span><span class="op">(</span>Varyings input<span class="op">)</span> <span class="op">:</span> SV_Target</span>
+<div class="sourceCode" id="cb5"><pre class="sourceCode glsl"><code class="sourceCode glsl"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>    half4 <span class="fu">DeferredShading</span><span class="op">(</span>Varyings input<span class="op">)</span> <span class="op">:</span> SV_Target</span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>    <span class="op">&#123;</span></span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>        float2 screen_uv <span class="op">=</span> <span class="op">(</span>input<span class="op">.</span><span class="fu">screenUV</span><span class="op">.</span><span class="fu">xy</span> <span class="op">/</span> input<span class="op">.</span><span class="fu">screenUV</span><span class="op">.</span><span class="fu">z</span><span class="op">);</span></span>
@@ -543,62 +498,47 @@ class="sourceCode glsl"><code class="sourceCode glsl"><span id="cb5-1"><a href="
 <span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a>    <span class="op">&#125;</span></span></code></pre></div>
 <p>这里我直接将gbuffer0的rgb输出来看结果，我将GbufferPass的gbuffer0输出改为MainTex，并且把Gbuffer3的值改为了0（防止unity直接将gbuffer3加上去影响对结果的判断）</p>
 <figure>
-<img
-src="https://pic1.zhimg.com/v2-776fc0cc68617fb0b973268bf5ef1d1c_1440w.jpg"
-alt="img" />
+<img src="https://pic1.zhimg.com/v2-776fc0cc68617fb0b973268bf5ef1d1c_1440w.jpg" alt="img">
 <figcaption aria-hidden="true">img</figcaption>
 </figure>
 <p>加了贴图的结果</p>
 <h2 id="法线">5.法线</h2>
 <p>由于法线是-1<sub>1的数据，而Gbuffer是0</sub>1的数据，所以我们需要在Gbuffer阶段编码一下，再到LightPass阶段解码一下。</p>
-<div class="sourceCode" id="cb6"><pre
-class="sourceCode glsl"><code class="sourceCode glsl"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co">//在GbufferPass</span></span>
+<div class="sourceCode" id="cb6"><pre class="sourceCode glsl"><code class="sourceCode glsl"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co">//在GbufferPass</span></span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>float3 nDirWS <span class="op">=</span> <span class="bu">normalize</span><span class="op">(</span>i<span class="op">.</span><span class="fu">nDirWS</span><span class="op">)*</span><span class="fl">0.5+0.5</span><span class="op">;</span></span>
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>g<span class="op">.</span><span class="fu">gBuffer2</span> <span class="op">=</span> <span class="fu">float4</span><span class="op">(</span>nDirWS<span class="op">,</span><span class="fl">1.0</span><span class="op">);</span></span></code></pre></div>
-<div class="sourceCode" id="cb7"><pre
-class="sourceCode glsl"><code class="sourceCode glsl"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co">//在LightPass</span></span>
+<div class="sourceCode" id="cb7"><pre class="sourceCode glsl"><code class="sourceCode glsl"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co">//在LightPass</span></span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>float3 nDirWS <span class="op">=</span> gbuffer2<span class="op">.</span><span class="fu">rgb</span><span class="op">*</span><span class="dv">2-1</span><span class="op">;</span></span></code></pre></div>
 <p>但是这种方式所得的结果法线精度会有不够的问题，计算兰伯特的时候会导致结果很丑：</p>
 <figure>
-<img
-src="https://pic3.zhimg.com/v2-ae1c21e1e67f81a011b2e5ddfcec3ce6_1440w.jpg"
-alt="img" />
+<img src="https://pic3.zhimg.com/v2-ae1c21e1e67f81a011b2e5ddfcec3ce6_1440w.jpg" alt="img">
 <figcaption aria-hidden="true">img</figcaption>
 </figure>
 <p>兰伯特结果</p>
 <figure>
-<img
-src="https://pic1.zhimg.com/v2-9767e8a4f5b62dc99e706fe0679fb808_1440w.jpg"
-alt="img" />
+<img src="https://pic1.zhimg.com/v2-9767e8a4f5b62dc99e706fe0679fb808_1440w.jpg" alt="img">
 <figcaption aria-hidden="true">img</figcaption>
 </figure>
 <p>半兰伯特结果</p>
 <p>unity中有个设置，可以提高法线精度</p>
 <figure>
-<img
-src="https://pic1.zhimg.com/v2-e92eed18f946368298f3a2b3f2978ffc_1440w.jpg"
-alt="img" />
+<img src="https://pic1.zhimg.com/v2-e92eed18f946368298f3a2b3f2978ffc_1440w.jpg" alt="img">
 <figcaption aria-hidden="true">img</figcaption>
 </figure>
 <p>就是这个选项</p>
 <p>打开它，untiy会改变Gbuffer2的rt格式并且使用八面体映射的方式来进行编码法线（前提是你解码法线和编码法线是用的unity的函数）</p>
 <figure>
-<img
-src="https://pic4.zhimg.com/v2-7686575122c00e91dad0ed8da4d051c3_1440w.jpg"
-alt="img" />
+<img src="https://pic4.zhimg.com/v2-7686575122c00e91dad0ed8da4d051c3_1440w.jpg" alt="img">
 <figcaption aria-hidden="true">img</figcaption>
 </figure>
 <p>使用高精度法线后的rt格式</p>
 <figure>
-<img
-src="https://pic1.zhimg.com/v2-80e42a9a7d8f68be3a6173f3b17c2238_1440w.jpg"
-alt="img" />
+<img src="https://pic1.zhimg.com/v2-80e42a9a7d8f68be3a6173f3b17c2238_1440w.jpg" alt="img">
 <figcaption aria-hidden="true">img</figcaption>
 </figure>
 <p>使用八面体映射编码后的法线（未解码）</p>
 <p>这里我直接把unity八面体映射的编码和解码方式给搬过来：</p>
-<div class="sourceCode" id="cb8"><pre
-class="sourceCode glsl"><code class="sourceCode glsl"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co">//在GbufferPass（写在片源着色器前面）</span></span>
+<div class="sourceCode" id="cb8"><pre class="sourceCode glsl"><code class="sourceCode glsl"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co">//在GbufferPass（写在片源着色器前面）</span></span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="co">//八面体映射压缩法线，解决法线精度问题</span></span>
 <span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>half3 <span class="fu">EyPackNormal</span><span class="op">(</span>half3 n<span class="op">)</span></span>
 <span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="op">&#123;</span></span>
@@ -610,8 +550,7 @@ class="sourceCode glsl"><code class="sourceCode glsl"><span id="cb8-1"><a href="
 <span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>float3 nDirWS <span class="op">=</span> <span class="bu">normalize</span><span class="op">(</span>i<span class="op">.</span><span class="fu">nDirWS</span><span class="op">);</span></span>
 <span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a>nDirWS <span class="op">=</span> <span class="fu">EyPackNormal</span><span class="op">(</span>nDirWS<span class="op">);</span></span>
 <span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a>g<span class="op">.</span><span class="fu">gBuffer2</span> <span class="op">=</span> <span class="fu">float4</span><span class="op">(</span>nDirWS<span class="op">,</span><span class="fl">1.0</span><span class="op">);</span></span></code></pre></div>
-<div class="sourceCode" id="cb9"><pre
-class="sourceCode glsl"><code class="sourceCode glsl"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co">//LightPass的片源着色器前面</span></span>
+<div class="sourceCode" id="cb9"><pre class="sourceCode glsl"><code class="sourceCode glsl"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co">//LightPass的片源着色器前面</span></span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="co">//解码八面体映射的法线</span></span>
 <span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>    half3 <span class="fu">EyUnpackNormal</span><span class="op">(</span>half3 pn<span class="op">)</span></span>
 <span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>    <span class="op">&#123;</span></span>
@@ -619,21 +558,17 @@ class="sourceCode glsl"><code class="sourceCode glsl"><span id="cb9-1"><a href="
 <span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>        half2 octNormalWS <span class="op">=</span> remappedOctNormalWS<span class="op">.</span><span class="fu">xy</span> <span class="op">*</span> <span class="fu">half</span><span class="op">(</span><span class="fl">2.0</span><span class="op">)</span> <span class="op">-</span> <span class="fu">half</span><span class="op">(</span><span class="fl">1.0</span><span class="op">);</span><span class="co">// values between [-1, +1]</span></span>
 <span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>        <span class="kw">return</span> <span class="fu">half3</span><span class="op">(</span><span class="fu">UnpackNormalOctQuadEncode</span><span class="op">(</span>octNormalWS<span class="op">));</span>              <span class="co">// values between [-1, +1]</span></span>
 <span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>    <span class="op">&#125;</span></span></code></pre></div>
-<div class="sourceCode" id="cb10"><pre
-class="sourceCode glsl"><code class="sourceCode glsl"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co">//在LightPass 的片源着色器里面</span></span>
+<div class="sourceCode" id="cb10"><pre class="sourceCode glsl"><code class="sourceCode glsl"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co">//在LightPass 的片源着色器里面</span></span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>float3 nDirWS <span class="op">=</span> gbuffer2<span class="op">.</span><span class="fu">rgb</span><span class="op">;</span></span>
 <span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>nDirWS <span class="op">=</span> <span class="fu">EyUnpackNormal</span><span class="op">(</span>nDirWS<span class="op">);</span></span></code></pre></div>
 <p>这样之后法线精度就差不多了：</p>
 <figure>
-<img
-src="https://pic3.zhimg.com/v2-4d61b373c5ddb5da7fff196b00dbe04c_1440w.jpg"
-alt="img" />
+<img src="https://pic3.zhimg.com/v2-4d61b373c5ddb5da7fff196b00dbe04c_1440w.jpg" alt="img">
 <figcaption aria-hidden="true">img</figcaption>
 </figure>
 <p>处理法线之后的半兰伯特</p>
 <p>GbufferPass的完整代码如下</p>
-<div class="sourceCode" id="cb11"><pre
-class="sourceCode glsl"><code class="sourceCode glsl"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>Shader &quot;Gbuffer&quot;</span>
+<div class="sourceCode" id="cb11"><pre class="sourceCode glsl"><code class="sourceCode glsl"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>Shader &quot;Gbuffer&quot;</span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="op">&#123;</span></span>
 <span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>    Properties</span>
 <span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>    <span class="op">&#123;</span></span>
@@ -724,8 +659,7 @@ class="sourceCode glsl"><code class="sourceCode glsl"><span id="cb11-1"><a href=
 <span id="cb11-89"><a href="#cb11-89" aria-hidden="true" tabindex="-1"></a>    <span class="op">&#125;</span></span>
 <span id="cb11-90"><a href="#cb11-90" aria-hidden="true" tabindex="-1"></a><span class="op">&#125;</span></span></code></pre></div>
 <p>LightPass部分代码如下：</p>
-<div class="sourceCode" id="cb12"><pre
-class="sourceCode glsl"><code class="sourceCode glsl"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>    <span class="co">//解码八面体映射的法线</span></span>
+<div class="sourceCode" id="cb12"><pre class="sourceCode glsl"><code class="sourceCode glsl"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>    <span class="co">//解码八面体映射的法线</span></span>
 <span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>    half3 <span class="fu">EyUnpackNormal</span><span class="op">(</span>half3 pn<span class="op">)</span></span>
 <span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>    <span class="op">&#123;</span></span>
 <span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>        half2 remappedOctNormalWS <span class="op">=</span> <span class="fu">half2</span><span class="op">(</span><span class="fu">Unpack888ToFloat2</span><span class="op">(</span>pn<span class="op">));</span>          <span class="co">// values between [ 0, +1]</span></span>
@@ -750,21 +684,18 @@ class="sourceCode glsl"><code class="sourceCode glsl"><span id="cb12-1"><a href=
 <span id="cb12-23"><a href="#cb12-23" aria-hidden="true" tabindex="-1"></a>        float3 color <span class="op">=</span> <span class="bu">dot</span><span class="op">(</span><span class="fu">float3</span><span class="op">(</span><span class="dv">1</span><span class="op">,</span><span class="dv">0</span><span class="op">,</span><span class="dv">0</span><span class="op">),</span>nDirWS<span class="op">)*</span><span class="fl">0.5+0.5</span><span class="op">;</span></span>
 <span id="cb12-24"><a href="#cb12-24" aria-hidden="true" tabindex="-1"></a>        <span class="kw">return</span> <span class="fu">half4</span><span class="op">(</span>color<span class="op">,</span> <span class="fl">1.0</span><span class="op">);</span></span>
 <span id="cb12-25"><a href="#cb12-25" aria-hidden="true" tabindex="-1"></a>    <span class="op">&#125;</span></span></code></pre></div>
-<p><a
-target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/33905696">这里贴个八面体映射的原理想了解可以去看看</a></p>
+<p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/33905696">这里贴个八面体映射的原理想了解可以去看看</a></p>
 <h2 id="光照">6.光照</h2>
 <p>有了法线我们终于可以计算光照，首先是如何区分平行光和其他光。</p>
 <p>URP是用一个宏来区分的：</p>
-<div class="sourceCode" id="cb13"><pre
-class="sourceCode glsl"><code class="sourceCode glsl"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="pp">#if defined(_DIRECTIONAL)</span></span>
+<div class="sourceCode" id="cb13"><pre class="sourceCode glsl"><code class="sourceCode glsl"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="pp">#if defined(_DIRECTIONAL)</span></span>
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="pp">#else</span></span>
 <span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a><span class="pp">#endif</span></span></code></pre></div>
 <p>if后面为平行光照，else后面为其他光源</p>
 <p>先说平行光照。平行光照主要是需要它的方向、颜色（强度被包含在了颜色里），没什么好说的，用的话直接用下面的方法拿就行</p>
-<div class="sourceCode" id="cb14"><pre
-class="sourceCode glsl"><code class="sourceCode glsl"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co">//计算光照</span></span>
+<div class="sourceCode" id="cb14"><pre class="sourceCode glsl"><code class="sourceCode glsl"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co">//计算光照</span></span>
 <span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="pp">#if defined(_DIRECTIONAL)</span></span>
 <span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>float3 lDirWS <span class="op">=</span> <span class="bu">normalize</span><span class="op">(</span> _MainLightPosition<span class="op">.</span><span class="fu">xyz</span><span class="op">);</span></span>
 <span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>float3 lightColor <span class="op">=</span> _MainLightColor<span class="op">.</span><span class="fu">rgb</span><span class="op">;</span></span>
@@ -774,21 +705,17 @@ class="sourceCode glsl"><code class="sourceCode glsl"><span id="cb14-1"><a href=
 <p>然后是其他光源，主要是点光源和聚光灯。我这里完全没考虑聚光灯，只写了点光源相关，所以如果用了聚光灯的话结果可能会有些奇怪</p>
 <p>对于点光源考虑的就多了：点光源的位置，光照方向，光照的衰减，颜色（强度也是被包含在颜色里了）</p>
 <p>位置和颜色可以直接拿到：</p>
-<div class="sourceCode" id="cb15"><pre
-class="sourceCode glsl"><code class="sourceCode glsl"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>        float3 lightWS <span class="op">=</span> _LightPosWS<span class="op">;</span><span class="co">//点光源的位置</span></span>
+<div class="sourceCode" id="cb15"><pre class="sourceCode glsl"><code class="sourceCode glsl"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>        float3 lightWS <span class="op">=</span> _LightPosWS<span class="op">;</span><span class="co">//点光源的位置</span></span>
 <span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>        float3 lightColor <span class="op">=</span> _LightColor<span class="op">.</span><span class="fu">rgb</span><span class="op">;</span><span class="co">//颜色</span></span></code></pre></div>
 <p>光照方向的话就是点光源位置减去模型的顶点位置（记得归一化）</p>
-<div class="sourceCode" id="cb16"><pre
-class="sourceCode glsl"><code class="sourceCode glsl"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>        float3 lightWS <span class="op">=</span> _LightPosWS<span class="op">;</span><span class="co">//点光源的位置</span></span>
+<div class="sourceCode" id="cb16"><pre class="sourceCode glsl"><code class="sourceCode glsl"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>        float3 lightWS <span class="op">=</span> _LightPosWS<span class="op">;</span><span class="co">//点光源的位置</span></span>
 <span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>        float3 lightColor <span class="op">=</span> _LightColor<span class="op">.</span><span class="fu">rgb</span><span class="op">;</span><span class="co">//颜色</span></span>
 <span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>        <span class="co">//计算光照方向</span></span>
 <span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>        float3 lightVector <span class="op">=</span> lightWS <span class="op">-</span> posWS<span class="op">.</span><span class="fu">xyz</span><span class="op">;</span></span>
 <span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>        float3 lDirWS <span class="op">=</span> <span class="bu">normalize</span><span class="op">(</span>lightVector<span class="op">);</span></span></code></pre></div>
 <p>光照衰减：这里直接照搬unity的光照衰减。</p>
-<p>原理的话可以看这篇文章：<a
-href="https://link.zhihu.com/?target=https%3A//blog.csdn.net/qq_51603875/article/details/135847544">Unity中URP下额外灯的距离衰减_distanceattenuation-CSDN博客</a></p>
-<div class="sourceCode" id="cb17"><pre
-class="sourceCode glsl"><code class="sourceCode glsl"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co">//计算衰减（暂时不管聚光灯）</span></span>
+<p>原理的话可以看这篇文章：<a href="https://link.zhihu.com/?target=https%3A//blog.csdn.net/qq_51603875/article/details/135847544">Unity中URP下额外灯的距离衰减_distanceattenuation-CSDN博客</a></p>
+<div class="sourceCode" id="cb17"><pre class="sourceCode glsl"><code class="sourceCode glsl"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co">//计算衰减（暂时不管聚光灯）</span></span>
 <span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>        <span class="dt">float</span> distanceSqr <span class="op">=</span> <span class="bu">max</span><span class="op">(</span><span class="bu">dot</span><span class="op">(</span>lightVector<span class="op">,</span> lightVector<span class="op">),</span> HALF_MIN<span class="op">);</span><span class="co">//防止取0</span></span>
 <span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>        float4 attenuation <span class="op">=</span> _LightAttenuation<span class="op">;</span></span>
 <span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>        <span class="dt">float</span> lightAtten <span class="op">=</span> <span class="fu">rcp</span><span class="op">(</span>distanceSqr<span class="op">);</span></span>
@@ -798,8 +725,7 @@ class="sourceCode glsl"><code class="sourceCode glsl"><span id="cb17-1"><a href=
 <span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a>        smoothFactor <span class="op">=</span> smoothFactor <span class="op">*</span> smoothFactor<span class="op">;</span></span>
 <span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a>        <span class="dt">float</span> distanceAttenuation <span class="op">=</span> lightAtten <span class="op">*</span> smoothFactor<span class="op">;</span></span></code></pre></div>
 <p>相关部分完整代码：</p>
-<div class="sourceCode" id="cb18"><pre
-class="sourceCode glsl"><code class="sourceCode glsl"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co">//计算光照</span></span>
+<div class="sourceCode" id="cb18"><pre class="sourceCode glsl"><code class="sourceCode glsl"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co">//计算光照</span></span>
 <span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>        <span class="pp">#if defined(_DIRECTIONAL)</span></span>
 <span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>        float3 lDirWS <span class="op">=</span> <span class="bu">normalize</span><span class="op">(</span> _MainLightPosition<span class="op">.</span><span class="fu">xyz</span><span class="op">);</span></span>
 <span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>        float3 lightColor <span class="op">=</span> _MainLightColor<span class="op">.</span><span class="fu">rgb</span><span class="op">;</span></span>
@@ -824,38 +750,28 @@ class="sourceCode glsl"><code class="sourceCode glsl"><span id="cb18-1"><a href=
 <h2 id="修改rt">7.修改RT</h2>
 <p>有时候URPGbuffer的RT格式不能满足自己的需求，例如这里我用gbuffer2的a通道来传递半兰伯特的结果精度会很差（为什么R8G8B8A8_UNorm还会这么差）：</p>
 <figure>
-<img
-src="https://pic4.zhimg.com/v2-1db1be7cf0d0bd0f0ccf2d9c1e374397_1440w.jpg"
-alt="img" />
+<img src="https://pic4.zhimg.com/v2-1db1be7cf0d0bd0f0ccf2d9c1e374397_1440w.jpg" alt="img">
 <figcaption aria-hidden="true">img</figcaption>
 </figure>
 <p>将半兰伯特塞到Gbuffer2的A通道</p>
 <figure>
-<img
-src="https://picx.zhimg.com/v2-7742e052ded4489d9206ee64c27e4f29_1440w.jpg"
-alt="img" />
+<img src="https://picx.zhimg.com/v2-7742e052ded4489d9206ee64c27e4f29_1440w.jpg" alt="img">
 <figcaption aria-hidden="true">img</figcaption>
 </figure>
 <p>结果</p>
 <p>这就需要我们自己去修改RT的格式。</p>
 <p>Gbuffer的RT格式是在DeferredLights.cs的GetGBufferFormat函数中定义的（我这里是第149行），我这里将Gbuffer2的RT直接改为R16G16B16A16_SFloat</p>
 <figure>
-<img
-src="https://pic1.zhimg.com/v2-697fcd453570192be1eeea667054feba_1440w.jpg"
-alt="img" />
+<img src="https://pic1.zhimg.com/v2-697fcd453570192be1eeea667054feba_1440w.jpg" alt="img">
 <figcaption aria-hidden="true">img</figcaption>
 </figure>
 <p>从上半部分可以看到之前法线精度开关在RT部分的实际用途</p>
 <figure>
-<img
-src="https://pic1.zhimg.com/v2-828de6fdb9776d683229c342d1b4acc4_1440w.jpg"
-alt="img" />
+<img src="https://pic1.zhimg.com/v2-828de6fdb9776d683229c342d1b4acc4_1440w.jpg" alt="img">
 <figcaption aria-hidden="true">img</figcaption>
 </figure>
 <figure>
-<img
-src="https://pic1.zhimg.com/v2-2ebe8c8a4662d36d5f488568b654d53e_1440w.jpg"
-alt="img" />
+<img src="https://pic1.zhimg.com/v2-2ebe8c8a4662d36d5f488568b654d53e_1440w.jpg" alt="img">
 <figcaption aria-hidden="true">img</figcaption>
 </figure>
 <p>修改后的结果</p>
@@ -863,23 +779,17 @@ alt="img" />
 <h2 id="在lightpass中插入自己的贴图">8.在LightPass中插入自己的贴图</h2>
 <p>如果做卡通渲染之类可能需要往LightPass中塞ramp贴图，他也在DeferredLights.cs中实现，先在ShaderConstants类中写一个PropertyToID</p>
 <figure>
-<img
-src="https://pica.zhimg.com/v2-01d0e85492087016582cae59109bffc2_1440w.jpg"
-alt="img" />
+<img src="https://pica.zhimg.com/v2-01d0e85492087016582cae59109bffc2_1440w.jpg" alt="img">
 <figcaption aria-hidden="true">img</figcaption>
 </figure>
 <p>然后在RenderStencilDirectionalLights函数的某for循环中（看图）SetGlobalTexture就行了</p>
 <figure>
-<img
-src="https://pic2.zhimg.com/v2-f1ef3570bb7ea341ddc277dcf5641dc7_1440w.jpg"
-alt="img" />
+<img src="https://pic2.zhimg.com/v2-f1ef3570bb7ea341ddc277dcf5641dc7_1440w.jpg" alt="img">
 <figcaption aria-hidden="true">img</figcaption>
 </figure>
 <p>然后就是在LightPass的shader中先声明一下（大概150行左右就能找到untiy声明变量的位置）</p>
 <figure>
-<img
-src="https://pica.zhimg.com/v2-faf8ab905a6ebc7ba082dadebf20ed70_1440w.jpg"
-alt="img" />
+<img src="https://pica.zhimg.com/v2-faf8ab905a6ebc7ba082dadebf20ed70_1440w.jpg" alt="img">
 <figcaption aria-hidden="true">img</figcaption>
 </figure>
 <p>在这声明</p>

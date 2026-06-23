@@ -1,0 +1,385 @@
+
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="utf-8" />
+    <title>消融效果 | 枫雪のHome</title>
+    <meta name="author" content="枫雪" />
+    <meta name="description" content="Elysia love" />
+    <meta name="keywords" content="" />
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"
+    />
+    <link rel="icon" href="/images/avatar.jpg" />
+    <link rel="preconnect" href="https://s4.zstatic.net" />
+<script src="https://s4.zstatic.net/ajax/libs/vue/3.3.7/vue.global.prod.min.js"></script>
+<link rel="stylesheet" href="https://s4.zstatic.net/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
+<link rel="preconnect" href="https://fonts.googleapis.cn" />
+<link rel="preconnect" href="https://fonts.gstatic.cn" crossorigin />
+<link
+    rel="stylesheet"
+    href="https://fonts.googleapis.cn/css2?family=Fira+Code:wght@400;500;600;700&family=Lexend:wght@400;500;600;700;800;900&family=Noto+Sans+SC:wght@400;500;600;700;800;900&display=swap"
+/>
+<script> const mixins = {}; </script>
+
+<script src="https://polyfill.alicdn.com/v3/polyfill.min.js?features=default"></script>
+
+
+<script src="https://s4.zstatic.net/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script src="https://s4.zstatic.net/ajax/libs/highlightjs-line-numbers.js/2.8.0/highlightjs-line-numbers.min.js"></script>
+<link
+    rel="stylesheet"
+    href="https://s4.zstatic.net/ajax/libs/highlight.js/11.9.0/styles/github.min.css"
+/>
+<script src="/js/lib/highlight.js"></script>
+
+
+<script src="https://s4.zstatic.net/ajax/libs/KaTeX/0.16.9/katex.min.js"></script>
+<script src="https://s4.zstatic.net/ajax/libs/KaTeX/0.16.9/contrib/auto-render.min.js"></script>
+<link rel="stylesheet" href="https://s4.zstatic.net/ajax/libs/KaTeX/0.16.9/katex.min.css" />
+<script src="/js/lib/math.js"></script>
+
+
+<script src="/js/lib/preview.js"></script>
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/css/main.css" />
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+<body>
+    <div id="layout">
+        <transition name="fade">
+            <div id="loading" v-show="loading">
+                <div id="loading-circle">
+                    <h2>LOADING</h2>
+                    <p>加载过慢请开启缓存 浏览器默认开启</p>
+                    <img src="/images/loading.gif" />
+                </div>
+            </div>
+        </transition>
+        <div id="menu" :class="{ hidden: hiddenMenu, 'menu-color': menuColor}">
+    <nav id="desktop-menu">
+        <a class="title" href="/">
+            <span>枫雪のHOME</span>
+        </a>
+        
+        <a href="/">
+            <i class="fa-solid fa-house fa-fw"></i>
+            <span>&ensp;主页</span>
+        </a>
+        
+        <a href="/about">
+            <i class="fa-solid fa-id-card fa-fw"></i>
+            <span>&ensp;关于我</span>
+        </a>
+        
+        <a href="/archives">
+            <i class="fa-solid fa-box-archive fa-fw"></i>
+            <span>&ensp;归档</span>
+        </a>
+        
+        <a href="/categories">
+            <i class="fa-solid fa-bookmark fa-fw"></i>
+            <span>&ensp;分类</span>
+        </a>
+        
+        <a href="/tags">
+            <i class="fa-solid fa-tags fa-fw"></i>
+            <span>&ensp;标签</span>
+        </a>
+        
+    </nav>
+    <nav id="mobile-menu">
+        <div class="title" @click="showMenuItems = !showMenuItems">
+            <i class="fa-solid fa-bars fa-fw"></i>
+            <span>&emsp;枫雪のHOME</span>
+        </div>
+        <transition name="slide">
+            <div class="items" v-show="showMenuItems">
+                
+                <a href="/">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-house fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">主页</div>
+                    </div>
+                </a>
+                
+                <a href="/about">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-id-card fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">关于我</div>
+                    </div>
+                </a>
+                
+                <a href="/archives">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-box-archive fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">归档</div>
+                    </div>
+                </a>
+                
+                <a href="/categories">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-bookmark fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">分类</div>
+                    </div>
+                </a>
+                
+                <a href="/tags">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-tags fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">标签</div>
+                    </div>
+                </a>
+                
+            </div>
+        </transition>
+    </nav>
+</div>
+<transition name="fade">
+    <div id="menu-curtain" @click="showMenuItems = !showMenuItems" v-show="showMenuItems"></div>
+</transition>
+
+        <div id="main" :class="loading ? 'into-enter-from': 'into-enter-active'">
+            <div class="article">
+    <div>
+        <h1>消融效果</h1>
+    </div>
+    <div class="info">
+        <span class="date">
+            <span class="icon">
+                <i class="fa-solid fa-calendar fa-fw"></i>
+            </span>
+            2026/3/13
+        </span>
+        
+        <span class="category">
+            <a href="/categories/%E6%8A%80%E6%9C%AF/">
+                <span class="icon">
+                    <i class="fa-solid fa-bookmark fa-fw"></i>
+                </span>
+                技术
+            </a>
+        </span>
+        
+        
+        <span class="tags">
+            <span class="icon">
+                <i class="fa-solid fa-tags fa-fw"></i>
+            </span>
+            
+            
+            <span class="tag">
+                
+                <a href="/tags/UI/" style="color: #00a596">
+                    UI
+                </a>
+            </span>
+            
+        </span>
+        
+    </div>
+    
+    <div class="content" v-pre>
+        <p>给到的需求是消融效果，它在游戏中非常常用，是个很常见的效果。本文将先介绍消融shader的使用方式，再去讲一下它的实现原理。</p>
+<p>unity版本：Unity6000.062f1</p>
+<span id="more"></span>
+<h1 id="使用方式">1.使用方式</h1>
+<p>其实消融shader的使用并不复杂，基本手动将各个参数调整一下就能学会使用，但参数数量还算是有些多，所以还是挨个介绍一下。</p>
+<ul>
+<li>DissolveColor</li>
+</ul>
+<p>很简单，指的就是消融边界的颜色，支持HDR，需要注意的是，为了让unity的后处理生效，需要将Canvas的RenderMode的模式设置为ScreenSpace—Camera。</p>
+<ul>
+<li>NoiseTex</li>
+</ul>
+<p>消融效果都需要噪声贴图，选一个就好，不同噪声的话边缘的消融形状也不一样，下面是个噪声范例：</p>
+<figure>
+<img src="/2026/03/13/%E6%B6%88%E8%9E%8D%E6%95%88%E6%9E%9C/cloud1.png" alt="cloud1">
+<figcaption aria-hidden="true">cloud1</figcaption>
+</figure>
+<ul>
+<li>NoiseOffestSpeed</li>
+</ul>
+<p>消融的边缘会流动，这个参数控制的是流动速度</p>
+<ul>
+<li>Angle</li>
+</ul>
+<p>Angle控制的是消融开始的方向，角度制，0度时方向是从最左边开始消融</p>
+<ul>
+<li>DissolveRange</li>
+</ul>
+<p>它控制的是消融过程本身，随着数值增大，会按照某个方向消融。</p>
+<ul>
+<li>NoiseSoft</li>
+</ul>
+<p>NoiseSoft控制的是纯色边缘所占据边缘的比例，0时完全没有纯色边缘，随着NoiseSoft值增大，纯色边缘所占据的越来越多</p>
+<ul>
+<li>NoiseRange</li>
+</ul>
+<p>NoiseRange指的是消融残留部分的范围，值越小残留越少，消融边界越接近一条直线</p>
+<ul>
+<li>SrcOffest</li>
+</ul>
+<p>SrcOffest指的是消融边缘图像本身的扰动，值越大，消融边缘的位置被扭曲的越严重。</p>
+<h1 id="消融原理">2.消融原理</h1>
+<p>最简单的消融的话非常好实现，直接采样噪声图，然后跟给个值进透明剪切即可。这样的消融会根据整个噪声的明暗进行消融，白色的地方最先消融，黑色的地方后消融。如果再加上个值，跟原先的消融进度做个区分的话，就可以将消融的边缘拆分开来，乘上个颜色就是消融边缘颜色，而加上的这个区分值就是控制消融边界比例的值。</p>
+<p>而这次的消融制作在其基础上加了一些东西。主要是消融的方向性与边界残留的控制，要让消融从某个方向到另一个方向，这需要计算出一个遮罩：</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="dt">float</span> rad <span class="op">=</span> radians<span class="op">(</span>_Angle<span class="op">);</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>float2 dir <span class="op">=</span> float2<span class="op">(</span>cos<span class="op">(</span>rad<span class="op">),</span> sin<span class="op">(</span>rad<span class="op">));</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>float2 pos <span class="op">=</span> uv<span class="op">-</span>float2<span class="op">(</span><span class="fl">0.5</span><span class="op">,</span><span class="fl">0.5</span><span class="op">)</span> <span class="op">;</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="dt">float</span> posOffset <span class="op">=</span> dot<span class="op">(</span>normalize<span class="op">(</span>dir<span class="op">),</span> pos<span class="op">)*</span><span class="fl">0.5</span><span class="op">+</span><span class="fl">0.5</span><span class="op">;</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>_DissolveRange <span class="op">=</span> remap<span class="op">(</span>_DissolveRange<span class="op">,</span> <span class="dv">0</span><span class="op">,</span> <span class="dv">1</span><span class="op">,</span> <span class="op">-</span>_NoiseRange<span class="op">,</span> <span class="dv">1</span> <span class="op">+</span> _NoiseRange<span class="op">);</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="dt">float</span> fromDir <span class="op">=</span> _DissolveRange <span class="op">-</span> _NoiseRange<span class="op">;</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="dt">float</span> alphaDir <span class="op">=</span> remap<span class="op">(</span>posOffset<span class="op">,</span> fromDir<span class="op">,</span> _DissolveRange<span class="op">,</span> <span class="dv">0</span><span class="op">,</span> <span class="dv">1</span><span class="op">);</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>alphaDir <span class="op">=</span> saturate<span class="op">(</span>alphaDir<span class="op">);</span></span></code></pre></div>
+<h2 id="消融方向">2.1消融方向</h2>
+<p>在拿到消融的角度_Angle后，先从角度制度转为弧度制，再拆成正弦函数和余弦函数的组合，用于后续的角度计算。对于旋转，由于UV的原点（0，0）右下角，直接进行旋转的话，旋转中心在UV原点的位置，这不是我们想要的，所以我们需要给UV-0.5，将它的原点移动到图片的中心。对于图片上的任意一点的UV值，我们都可以看作是一个以图片中心为原点的向量值，将其与旋转方向做点乘，我们就可以知道哪些像素需要被影响。此外，这个值是-1~1的值，我们将其*0.5+0.5给映射到0~1的区间。</p>
+<p>下面是posOffset值的可视化：</p>
+<video src="./消融效果/Desktop 2026.03.13 - 16.41.53.01.mp4" controls>
+</video>
+<p>其从左到右就是0~1的值，也就代表着消融的进度。</p>
+<h2 id="重映射函数remap">2.2重映射函数remap</h2>
+<p>为了控制消融进度以及残留，我们需要对0~1的消融进度重映射，而其中使用的函数则是remap函数，它可以将指定区间的值映射到另一个区间。它并不包含在HLSL的库中，需要自己构建，它长成这个样子：</p>
+<pre><code>half remap(half x, half t1, half t2, half s1, half s2)
+&#123;
+    return (x - t1) / (t2 - t1) * (s2 - s1) + s1;
+&#125;</code></pre>
+<p>其中x是参考值，t1<sub>t2是想要映射的区间，s1</sub>s2是映射到的区间。</p>
+<p>写成式子是这样：<strong>y = (x - t1) / (t2 - t1) * (s2 - s1) +
+s1</strong>。</p>
+<p>我们先解析前半部分： <strong>y = (x - t1) / (t2 - t1)</strong>。</p>
+<p>假设 t2 = 0.7， t1 = - 0.8 代入至公式中，可得：</p>
+<p>y = (x - (-0.8)) / (0.7 - (-0.8))，从代入式可知：</p>
+<p>当 x = -0.8 时，y = 0；</p>
+<p>当 x = 0.7 时，y = 1；</p>
+<p>作图如下：</p>
+<figure>
+<img src="/2026/03/13/%E6%B6%88%E8%9E%8D%E6%95%88%E6%9E%9C/image-20260313170324315.png" alt="image-20260313170324315">
+<figcaption aria-hidden="true">image-20260313170324315</figcaption>
+</figure>
+<p>根据求取的结果与示意图，我们可得出如下结论：</p>
+<p>当x = t1时，y = 0；</p>
+<p>当x = t2时，y = 1；</p>
+<p>前半部分的计算我们已经分析完毕了，其实这部分算法也是<strong>remap</strong>算法，因为它已经能让我们达到重映射的目的了。接下来我们结合整个公式进行分析，分析方式还是以代入数字的方式进行。</p>
+<p>对 <strong>y = (x - t1) / (t2 - t1) * (s2 - s1) + s1</strong>
+公式进行数字代入。</p>
+<p>假设 t2 = 0.7，t1 = -0.8保持不变，令s2 = 0.3，s1 =
+0.2待入至公式得：</p>
+<p>y = (x - (-0.8)) / (0.7 - (-0.8)) * (0.3 - 0.2) + 0.2。</p>
+<p>根据代入结果，作图如下：</p>
+<figure>
+<img src="/2026/03/13/%E6%B6%88%E8%9E%8D%E6%95%88%E6%9E%9C/image-20260313170505424.png" alt="image-20260313170505424">
+<figcaption aria-hidden="true">image-20260313170505424</figcaption>
+</figure>
+<p>可得结果：</p>
+<p>当 x = -0.8时，y = 0.2；</p>
+<p>当 x = 0.7 时， y = 0.3；</p>
+<p>也就是，</p>
+<p>当 x = t1 时，y = s1；</p>
+<p>当 x = t2 时，y = s2；</p>
+<h2 id="边界残留的控制以及原图扰动">2.3边界残留的控制以及原图扰动</h2>
+<p>对于原消融扰动控制，我们先从0~1给映射到-_NoiseRange~1 +
+_NoiseRange区间，然后我们计算一个fromDir值，它为映射后的 _DissolveRange-
+_NoiseRange值。这样它的取值范围就是- _NoiseRange~2*
+_NoiseRange。然后我我们再将之前计算的0<sub>1的posOffset的fromDir</sub>DissolveRange区间映射到0~1，就得到了一个新的值，它在完全消除到NoiseRange之间会有个自己控制的NoiseRange过度，可以控制残留下来区间值。</p>
+<p>可视化如下：</p>
+<figure>
+<img src="/2026/03/13/%E6%B6%88%E8%9E%8D%E6%95%88%E6%9E%9C/image-20260313172218565.png" alt="image-20260313172218565">
+<figcaption aria-hidden="true">image-20260313172218565</figcaption>
+</figure>
+<p>最后是对原图的扰动并不是什么难事，其实原理就是采样噪声后在把噪声值加到采样原图的UV上，最后给个参数控制强度罢了。</p>
+<p>相关代码如下：</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>float2 NoiseUV<span class="op">=</span> uv <span class="op">+</span>_NoiseOffestSpeed <span class="op">*</span>dir<span class="op">*</span> _Time<span class="op">.</span>x<span class="op">;</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>half dissolveTexAlpha <span class="op">=</span> tex2D<span class="op">(</span>_NoiseTex<span class="op">,</span> NoiseUV<span class="op">).</span>r<span class="op">;</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>half reverseAlphaDir <span class="op">=</span> <span class="dv">1</span> <span class="op">-</span> alphaDir<span class="op">;</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>half2 uvDiff <span class="op">=</span> uv <span class="op">+</span> half2<span class="op">(</span><span class="dv">0</span><span class="op">,</span> reverseAlphaDir <span class="op">*</span> dissolveTexAlpha <span class="op">*</span> _SrcOffest<span class="op">);</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>half4 color <span class="op">=</span> IN<span class="op">.</span>color <span class="op">*</span> tex2D<span class="op">(</span>_MainTex<span class="op">,</span> uvDiff<span class="op">);</span></span></code></pre></div>
+
+    </div>
+    
+    
+    
+    
+    <div id="comment">
+        <div id="giscus-container" class="giscus"></div>
+    </div>
+    
+    
+    
+    
+</div>
+
+            <footer id="footer">
+    <div id="footer-wrap">
+        <div>
+            &copy;
+            2022 - 2026 枫雪のHome
+            <span id="footer-icon">
+                <i class="fa-solid fa-font-awesome fa-fw"></i>
+            </span>
+            &commat;枫雪
+        </div>
+        <div>
+            Based on the <a target="_blank" rel="noopener" href="https://hexo.io">Hexo Engine</a> &amp;
+            <a target="_blank" rel="noopener" href="https://github.com/theme-particlex/hexo-theme-particlex">ParticleX Theme</a>
+        </div>
+        
+    </div>
+</footer>
+
+        </div>
+        
+        <transition name="fade">
+            <div id="preview" ref="preview" v-show="previewShow">
+                <img id="preview-content" ref="previewContent" />
+            </div>
+        </transition>
+        
+    </div>
+    <script src="/js/main.js"></script>
+    
+    
+<script
+    src="https://giscus.app/client.js"
+    data-repo="HLsama/HLsama.github.io"
+    data-repo-id="R_kgDOPEFGjQ"
+    data-category="Announcements"
+    data-category-id="DIC_kwDOPEFGjc4Csi-O"
+    data-mapping="pathname"
+    data-strict="0"
+    data-reactions-enabled="1"
+    data-emit-metadata="0"
+    data-input-position="bottom"
+    data-theme="preferred_color_scheme"
+    data-lang="zh-CN"
+    crossorigin
+    async
+></script>
+
+
+
+
+
+    
+</body>
+</html>

@@ -1,0 +1,643 @@
+
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="utf-8" />
+    <title>TMP相关内容总结 | 枫雪のHome</title>
+    <meta name="author" content="枫雪" />
+    <meta name="description" content="Elysia love" />
+    <meta name="keywords" content="" />
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"
+    />
+    <link rel="icon" href="/images/avatar.jpg" />
+    <link rel="preconnect" href="https://s4.zstatic.net" />
+<script src="https://s4.zstatic.net/ajax/libs/vue/3.3.7/vue.global.prod.min.js"></script>
+<link rel="stylesheet" href="https://s4.zstatic.net/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
+<link rel="preconnect" href="https://fonts.googleapis.cn" />
+<link rel="preconnect" href="https://fonts.gstatic.cn" crossorigin />
+<link
+    rel="stylesheet"
+    href="https://fonts.googleapis.cn/css2?family=Fira+Code:wght@400;500;600;700&family=Lexend:wght@400;500;600;700;800;900&family=Noto+Sans+SC:wght@400;500;600;700;800;900&display=swap"
+/>
+<script> const mixins = {}; </script>
+
+<script src="https://polyfill.alicdn.com/v3/polyfill.min.js?features=default"></script>
+
+
+<script src="https://s4.zstatic.net/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script src="https://s4.zstatic.net/ajax/libs/highlightjs-line-numbers.js/2.8.0/highlightjs-line-numbers.min.js"></script>
+<link
+    rel="stylesheet"
+    href="https://s4.zstatic.net/ajax/libs/highlight.js/11.9.0/styles/github.min.css"
+/>
+<script src="/js/lib/highlight.js"></script>
+
+
+<script src="https://s4.zstatic.net/ajax/libs/KaTeX/0.16.9/katex.min.js"></script>
+<script src="https://s4.zstatic.net/ajax/libs/KaTeX/0.16.9/contrib/auto-render.min.js"></script>
+<link rel="stylesheet" href="https://s4.zstatic.net/ajax/libs/KaTeX/0.16.9/katex.min.css" />
+<script src="/js/lib/math.js"></script>
+
+
+<script src="/js/lib/preview.js"></script>
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/css/main.css" />
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+<body>
+    <div id="layout">
+        <transition name="fade">
+            <div id="loading" v-show="loading">
+                <div id="loading-circle">
+                    <h2>LOADING</h2>
+                    <p>加载过慢请开启缓存 浏览器默认开启</p>
+                    <img src="/images/loading.gif" />
+                </div>
+            </div>
+        </transition>
+        <div id="menu" :class="{ hidden: hiddenMenu, 'menu-color': menuColor}">
+    <nav id="desktop-menu">
+        <a class="title" href="/">
+            <span>枫雪のHOME</span>
+        </a>
+        
+        <a href="/">
+            <i class="fa-solid fa-house fa-fw"></i>
+            <span>&ensp;主页</span>
+        </a>
+        
+        <a href="/about">
+            <i class="fa-solid fa-id-card fa-fw"></i>
+            <span>&ensp;关于我</span>
+        </a>
+        
+        <a href="/archives">
+            <i class="fa-solid fa-box-archive fa-fw"></i>
+            <span>&ensp;归档</span>
+        </a>
+        
+        <a href="/categories">
+            <i class="fa-solid fa-bookmark fa-fw"></i>
+            <span>&ensp;分类</span>
+        </a>
+        
+        <a href="/tags">
+            <i class="fa-solid fa-tags fa-fw"></i>
+            <span>&ensp;标签</span>
+        </a>
+        
+    </nav>
+    <nav id="mobile-menu">
+        <div class="title" @click="showMenuItems = !showMenuItems">
+            <i class="fa-solid fa-bars fa-fw"></i>
+            <span>&emsp;枫雪のHOME</span>
+        </div>
+        <transition name="slide">
+            <div class="items" v-show="showMenuItems">
+                
+                <a href="/">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-house fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">主页</div>
+                    </div>
+                </a>
+                
+                <a href="/about">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-id-card fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">关于我</div>
+                    </div>
+                </a>
+                
+                <a href="/archives">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-box-archive fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">归档</div>
+                    </div>
+                </a>
+                
+                <a href="/categories">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-bookmark fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">分类</div>
+                    </div>
+                </a>
+                
+                <a href="/tags">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-tags fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">标签</div>
+                    </div>
+                </a>
+                
+            </div>
+        </transition>
+    </nav>
+</div>
+<transition name="fade">
+    <div id="menu-curtain" @click="showMenuItems = !showMenuItems" v-show="showMenuItems"></div>
+</transition>
+
+        <div id="main" :class="loading ? 'into-enter-from': 'into-enter-active'">
+            <div class="article">
+    <div>
+        <h1>TMP相关内容总结</h1>
+    </div>
+    <div class="info">
+        <span class="date">
+            <span class="icon">
+                <i class="fa-solid fa-calendar fa-fw"></i>
+            </span>
+            2026/3/16
+        </span>
+        
+        <span class="category">
+            <a href="/categories/%E6%8A%80%E6%9C%AF/">
+                <span class="icon">
+                    <i class="fa-solid fa-bookmark fa-fw"></i>
+                </span>
+                技术
+            </a>
+        </span>
+        
+        
+        <span class="tags">
+            <span class="icon">
+                <i class="fa-solid fa-tags fa-fw"></i>
+            </span>
+            
+            
+            <span class="tag">
+                
+                <a href="/tags/UI/" style="color: #03a9f4">
+                    UI
+                </a>
+            </span>
+            
+        </span>
+        
+    </div>
+    
+    <div class="content" v-pre>
+        <p>本文会尽可能的去解释TMP（TextMeshPro）关于渲染部分的内容。不过这个插件还算是内容蛮多的，所以肯定不能面面俱到，其重点主要是它的TMP_SDF.Shader也就是DistanceField。</p>
+<p>unity版本：Unity6000.062f1</p>
+<span id="more"></span>
+<h1 id="参数解读">1、参数解读</h1>
+<h2 id="shader种类">1.1、shader种类</h2>
+<p>TextMeshPro使用的SDF的渲染方式，不过也包含传统的文字渲染方式。SDF的渲染可以在几乎不损失精度的前提下放大缩小文字，这是它与传统的文字渲染最不同的地方，所以后文的重点主要是它的SDFshader。</p>
+<figure>
+<img src="/2026/03/16/TMP%E7%9B%B8%E5%85%B3%E5%86%85%E5%AE%B9%E6%80%BB%E7%BB%93/image-20260317203102360.png" alt="image-20260317203102360">
+<figcaption aria-hidden="true">image-20260317203102360</figcaption>
+</figure>
+<p>SDF的shader主要有四种变体，分别是Distance Field、Distance Field
+(Surface)、Distance Field Overlay和Distance Field
+SSD。他们分别对应以下功能：</p>
+<p>Distance Field：常规的SDF渲染是最基础的类型</p>
+<p>Distance Field (Surface)：可以响应3D世界的光照</p>
+<p>Distance Field Overlay：这边版本的文字总是会在最上方，不会被遮挡</p>
+<p>Distance Field SSD：使用了Screen Space
+Derivatives，这种方式会使用屏幕空间导数来推算描边的宽度、抗锯齿、缩放等相关信息，在某些场景下会更清晰稳定，代价是更大的性能消耗。</p>
+<p>所有的SDFshader都会有PC版本和mobile版本，其中mobile版本为了适配移动端，砍了一些功能和效果。</p>
+<p>下图是PC版于mobile版本的功能对比：</p>
+<figure>
+<img src="/2026/03/16/TMP%E7%9B%B8%E5%85%B3%E5%86%85%E5%AE%B9%E6%80%BB%E7%BB%93/image-20260317205146836.png" alt="image-20260317205146836">
+<figcaption aria-hidden="true">image-20260317205146836</figcaption>
+</figure>
+<h2 id="distance-field功能一揽">2、Distance Field功能一揽</h2>
+<h3 id="face">2.1、Face</h3>
+<p>Face主要控制的是文字的整体外观，是整个功能的基础</p>
+<figure>
+<img src="/2026/03/16/TMP%E7%9B%B8%E5%85%B3%E5%86%85%E5%AE%B9%E6%80%BB%E7%BB%93/image-20260317211048957.png" alt="image-20260317211048957">
+<figcaption aria-hidden="true">image-20260317211048957</figcaption>
+</figure>
+<h4 id="color">2.1.1、color</h4>
+<p>Face的color控制的是文字的基础色，需要注意的是，它会与TextMeshPro组件设置的vertex
+colors相乘，如果没有特殊情况，顶点色和这个Color只控制一个即可。</p>
+<p>两个颜色相乘：</p>
+<figure>
+<img src="/2026/03/16/TMP%E7%9B%B8%E5%85%B3%E5%86%85%E5%AE%B9%E6%80%BB%E7%BB%93/image-20260317210558181.png" alt="image-20260317210558181">
+<figcaption aria-hidden="true">image-20260317210558181</figcaption>
+</figure>
+<p>只用FaceColor控制颜色：</p>
+<figure>
+<img src="/2026/03/16/TMP%E7%9B%B8%E5%85%B3%E5%86%85%E5%AE%B9%E6%80%BB%E7%BB%93/image-20260317210647812.png" alt="image-20260317210647812">
+<figcaption aria-hidden="true">image-20260317210647812</figcaption>
+</figure>
+<h4 id="texture">2.1.2、Texture</h4>
+<p>我们还可以直接用纹理直接填充颜色，最后颜色来自于face color、vertex
+color和Texture相乘。其中Speed还可以控制图片的流动。</p>
+<figure>
+<img src="/2026/03/16/TMP%E7%9B%B8%E5%85%B3%E5%86%85%E5%AE%B9%E6%80%BB%E7%BB%93/image-20260317211229283.png" alt="image-20260317211229283">
+<figcaption aria-hidden="true">image-20260317211229283</figcaption>
+</figure>
+<p>需要注意的是mobile版本不支持Texture功能，但mobile的surface版本可以。</p>
+<h4 id="softness">2.1.3、Softness</h4>
+<p>它可以控制文字边缘的软硬。</p>
+<p>Softness=0.5时效果：</p>
+<figure>
+<img src="/2026/03/16/TMP%E7%9B%B8%E5%85%B3%E5%86%85%E5%AE%B9%E6%80%BB%E7%BB%93/image-20260317211720939.png" alt="image-20260317211720939">
+<figcaption aria-hidden="true">image-20260317211720939</figcaption>
+</figure>
+<h4 id="dilate">2.1.4、Dilate</h4>
+<p>使用“Dilate”可以调整文本轮廓在距离场的位置。如果没有dilation，效果只有的原始轮廓的一半。负dilation会缩小文本，而正dilation会使文本膨胀。</p>
+<p>正常</p>
+<figure>
+<img src="/2026/03/16/TMP%E7%9B%B8%E5%85%B3%E5%86%85%E5%AE%B9%E6%80%BB%E7%BB%93/image-20260317211850382.png" alt="image-20260317211850382">
+<figcaption aria-hidden="true">image-20260317211850382</figcaption>
+</figure>
+<p>缩小</p>
+<figure>
+<img src="/2026/03/16/TMP%E7%9B%B8%E5%85%B3%E5%86%85%E5%AE%B9%E6%80%BB%E7%BB%93/image-20260317211946336.png" alt="image-20260317211946336">
+<figcaption aria-hidden="true">image-20260317211946336</figcaption>
+</figure>
+<p>膨胀</p>
+<figure>
+<img src="/2026/03/16/TMP%E7%9B%B8%E5%85%B3%E5%86%85%E5%AE%B9%E6%80%BB%E7%BB%93/image-20260317212003186.png" alt="image-20260317212003186">
+<figcaption aria-hidden="true">image-20260317212003186</figcaption>
+</figure>
+<h3 id="outline">2.2、Outline</h3>
+<p>Outline主要通过控制Thickness来控制描边，下面是相关材质面板：</p>
+<figure>
+<img src="/2026/03/16/TMP%E7%9B%B8%E5%85%B3%E5%86%85%E5%AE%B9%E6%80%BB%E7%BB%93/image-20260319200415527.png" alt="image-20260319200415527">
+<figcaption aria-hidden="true">image-20260319200415527</figcaption>
+</figure>
+<h4 id="color-1">2.2.1、Color</h4>
+<p>无需多说，赋予描边一个指定的颜色，下图是白字黑描边：</p>
+<figure>
+<img src="/2026/03/16/TMP%E7%9B%B8%E5%85%B3%E5%86%85%E5%AE%B9%E6%80%BB%E7%BB%93/image-20260319200614055.png" alt="image-20260319200614055">
+<figcaption aria-hidden="true">image-20260319200614055</figcaption>
+</figure>
+<h4 id="texture-1">2.2.2、Texture</h4>
+<p>与Face类似描边也可以指定纹理，最终描边颜色来自Color与Texture的乘积，其中Speed可以控制描边贴图在某方向的流动。</p>
+<figure>
+<img src="/2026/03/16/TMP%E7%9B%B8%E5%85%B3%E5%86%85%E5%AE%B9%E6%80%BB%E7%BB%93/image-20260319201003517.png" alt="image-20260319201003517">
+<figcaption aria-hidden="true">image-20260319201003517</figcaption>
+</figure>
+<p>需要注意的是unlit mobile shade不支持纹理。</p>
+<h4 id="thickness">2.2.3、Thickness</h4>
+<p>outline是沿文本的轮廓线进行绘制的，通过thickness向内和向外延伸。你可以通过在适当的方向上以同样的量调整Dilation
+of the face来推动轮廓内或外的轮廓。</p>
+<h3 id="underlay">2.3、Underlay</h3>
+<p>Underlay可以在文字的下面核外添加一些效果，常见的用途就是在文字下面加一个假的阴影。</p>
+<figure>
+<img src="/2026/03/16/TMP%E7%9B%B8%E5%85%B3%E5%86%85%E5%AE%B9%E6%80%BB%E7%BB%93/image-20260319201451073.png" alt="image-20260319201451073">
+<figcaption aria-hidden="true">image-20260319201451073</figcaption>
+</figure>
+<h4 id="underlaytype">2.3.1、UnderlayType</h4>
+<p>主要是两种模式，一种是在文字的下面：Normal，它的常见用法是用来做一些文字对背景的投影。另一种是在文字里面：Inner，它可以模拟文字被光照射后的明暗变化，需要注意的是，Inner模式由于会被文字挡住，想要看到他就将Face设置为半透明。</p>
+<p>Normal模式：</p>
+<figure>
+<img src="/2026/03/16/TMP%E7%9B%B8%E5%85%B3%E5%86%85%E5%AE%B9%E6%80%BB%E7%BB%93/image-20260319201959038.png" alt="image-20260319201959038">
+<figcaption aria-hidden="true">image-20260319201959038</figcaption>
+</figure>
+<p>Inner模式（透明度50%）：</p>
+<figure>
+<img src="/2026/03/16/TMP%E7%9B%B8%E5%85%B3%E5%86%85%E5%AE%B9%E6%80%BB%E7%BB%93/image-20260319202213478.png" alt="image-20260319202213478">
+<figcaption aria-hidden="true">image-20260319202213478</figcaption>
+</figure>
+<h4 id="color-2">2.3.2、Color</h4>
+<p>不多说，调节颜色，一般会设置成半透明</p>
+<h4 id="offset">2.3.3、Offset</h4>
+<p>控制投影的方向，下面是不同Offset的投影</p>
+<figure>
+<img src="/2026/03/16/TMP%E7%9B%B8%E5%85%B3%E5%86%85%E5%AE%B9%E6%80%BB%E7%BB%93/image-20260319202659031.png" alt="image-20260319202659031">
+<figcaption aria-hidden="true">image-20260319202659031</figcaption>
+</figure>
+<figure>
+<img src="/2026/03/16/TMP%E7%9B%B8%E5%85%B3%E5%86%85%E5%AE%B9%E6%80%BB%E7%BB%93/image-20260319202712180.png" alt="image-20260319202712180">
+<figcaption aria-hidden="true">image-20260319202712180</figcaption>
+</figure>
+<h4 id="dilate-1">2.3.4、Dilate</h4>
+<p>与Face类似，可以调节阴影的大小</p>
+<figure>
+<img src="/2026/03/16/TMP%E7%9B%B8%E5%85%B3%E5%86%85%E5%AE%B9%E6%80%BB%E7%BB%93/image-20260319203559850.png" alt="image-20260319203559850">
+<figcaption aria-hidden="true">image-20260319203559850</figcaption>
+</figure>
+<figure>
+<img src="/2026/03/16/TMP%E7%9B%B8%E5%85%B3%E5%86%85%E5%AE%B9%E6%80%BB%E7%BB%93/image-20260319203612005.png" alt="image-20260319203612005">
+<figcaption aria-hidden="true">image-20260319203612005</figcaption>
+</figure>
+<h4 id="softness-1">2.3.5、Softness</h4>
+<p>调节阴影的软硬，软阴影更偏写实，硬阴影卡通效果更强</p>
+<p><img src="/2026/03/16/TMP%E7%9B%B8%E5%85%B3%E5%86%85%E5%AE%B9%E6%80%BB%E7%BB%93/image-20260319203749580.png" alt="image-20260319203749580"><img src="/2026/03/16/TMP%E7%9B%B8%E5%85%B3%E5%86%85%E5%AE%B9%E6%80%BB%E7%BB%93/image-20260319203807511.png" alt="image-20260319203807511"></p>
+<h3 id="lighting">2.4、Lighting</h3>
+<p>Lighting下面主要有四大内容，分别是Bevel、LoaclLighting、BumpMap、EnvironmentMap，通过这些内容来构建一个虚假的光照。</p>
+<figure>
+<img src="/2026/03/16/TMP%E7%9B%B8%E5%85%B3%E5%86%85%E5%AE%B9%E6%80%BB%E7%BB%93/image-20260319210814210.png" alt="image-20260319210814210">
+<figcaption aria-hidden="true">image-20260319210814210</figcaption>
+</figure>
+<h4 id="bevel">2.4.1、Bevel</h4>
+<p>Bevel可以让文字有具有深度的错觉，它主要是与后面的模拟光照配合使用的，mobile不支持这个功能。</p>
+<figure>
+<img src="/2026/03/16/TMP%E7%9B%B8%E5%85%B3%E5%86%85%E5%AE%B9%E6%80%BB%E7%BB%93/image-20260319211134736.png" alt="image-20260319211134736">
+<figcaption aria-hidden="true">image-20260319211134736</figcaption>
+</figure>
+<p>Bevel功能一般配合outline一起使用，它会让描边也有一种深度感</p>
+<p>Bevel开：</p>
+<figure>
+<img src="/2026/03/16/TMP%E7%9B%B8%E5%85%B3%E5%86%85%E5%AE%B9%E6%80%BB%E7%BB%93/image-20260319213652355.png" alt="image-20260319213652355">
+<figcaption aria-hidden="true">image-20260319213652355</figcaption>
+</figure>
+<p>Bevel关：</p>
+<figure>
+<img src="/2026/03/16/TMP%E7%9B%B8%E5%85%B3%E5%86%85%E5%AE%B9%E6%80%BB%E7%BB%93/image-20260319213707842.png" alt="image-20260319213707842">
+<figcaption aria-hidden="true">image-20260319213707842</figcaption>
+</figure>
+<h5 id="type">2.4.1.1、Type</h5>
+<p>有两种可选的模式，分别是OuterBevel和InnerBevel。第一种让坡度从中心向外扩散，给文字一种凸出来的感觉；第二种从则让文字中心深度最深，所以看起来像凹进去</p>
+<p>OuterBevel</p>
+<figure>
+<img src="/2026/03/16/TMP%E7%9B%B8%E5%85%B3%E5%86%85%E5%AE%B9%E6%80%BB%E7%BB%93/image-20260319214208221.png" alt="image-20260319214208221">
+<figcaption aria-hidden="true">image-20260319214208221</figcaption>
+</figure>
+<p>InnerBevel</p>
+<figure>
+<img src="/2026/03/16/TMP%E7%9B%B8%E5%85%B3%E5%86%85%E5%AE%B9%E6%80%BB%E7%BB%93/image-20260319214230204.png" alt="image-20260319214230204">
+<figcaption aria-hidden="true">image-20260319214230204</figcaption>
+</figure>
+<h5 id="amount">2.4.1.2、Amount</h5>
+<p>它控制的是这个坡度的陡峭程度，数值约高越陡</p>
+<p>不同数值的变化：0，0.2，0.5</p>
+<figure>
+<img src="/2026/03/16/TMP%E7%9B%B8%E5%85%B3%E5%86%85%E5%AE%B9%E6%80%BB%E7%BB%93/image-20260319214604822.png" alt="image-20260319214604822">
+<figcaption aria-hidden="true">image-20260319214604822</figcaption>
+</figure>
+<figure>
+<img src="/2026/03/16/TMP%E7%9B%B8%E5%85%B3%E5%86%85%E5%AE%B9%E6%80%BB%E7%BB%93/image-20260319214613853.png" alt="image-20260319214613853">
+<figcaption aria-hidden="true">image-20260319214613853</figcaption>
+</figure>
+<figure>
+<img src="/2026/03/16/TMP%E7%9B%B8%E5%85%B3%E5%86%85%E5%AE%B9%E6%80%BB%E7%BB%93/image-20260319214622310.png" alt="image-20260319214622310">
+<figcaption aria-hidden="true">image-20260319214622310</figcaption>
+</figure>
+<h5 id="offset-1">2.4.1.3、Offset</h5>
+<p>可以选择偏移这个坡度，它与Outline有很大的关联</p>
+<p>负值，0，正值</p>
+<figure>
+<img src="/2026/03/16/TMP%E7%9B%B8%E5%85%B3%E5%86%85%E5%AE%B9%E6%80%BB%E7%BB%93/image-20260319215019017.png" alt="image-20260319215019017">
+<figcaption aria-hidden="true">image-20260319215019017</figcaption>
+</figure>
+<figure>
+<img src="/2026/03/16/TMP%E7%9B%B8%E5%85%B3%E5%86%85%E5%AE%B9%E6%80%BB%E7%BB%93/image-20260319215027941.png" alt="image-20260319215027941">
+<figcaption aria-hidden="true">image-20260319215027941</figcaption>
+</figure>
+<figure>
+<img src="/2026/03/16/TMP%E7%9B%B8%E5%85%B3%E5%86%85%E5%AE%B9%E6%80%BB%E7%BB%93/image-20260319215037535.png" alt="image-20260319215037535">
+<figcaption aria-hidden="true">image-20260319215037535</figcaption>
+</figure>
+<h5 id="width">2.4.1.4、Width</h5>
+<p>这个参数主要是斜面的尺寸，当设置为零时，斜面会填充轮廓的全部厚度。正值宽度使斜面延伸到轮廓的两侧，而负值宽度则使斜面缩小到轮廓的中部。</p>
+<p>负值, 0, 和正值宽度表现</p>
+<figure>
+<img src="/2026/03/16/TMP%E7%9B%B8%E5%85%B3%E5%86%85%E5%AE%B9%E6%80%BB%E7%BB%93/image-20260320093530406.png" alt="image-20260320093530406">
+<figcaption aria-hidden="true">image-20260320093530406</figcaption>
+</figure>
+<figure>
+<img src="/2026/03/16/TMP%E7%9B%B8%E5%85%B3%E5%86%85%E5%AE%B9%E6%80%BB%E7%BB%93/image-20260320093544315.png" alt="image-20260320093544315">
+<figcaption aria-hidden="true">image-20260320093544315</figcaption>
+</figure>
+<figure>
+<img src="/2026/03/16/TMP%E7%9B%B8%E5%85%B3%E5%86%85%E5%AE%B9%E6%80%BB%E7%BB%93/image-20260320093555427.png" alt="image-20260320093555427">
+<figcaption aria-hidden="true">image-20260320093555427</figcaption>
+</figure>
+<h5 id="roundness">2.4.1.5、Roundness</h5>
+<p>这个值控制坡度的圆滑程度，值越低越锐利，越高越圆滑。</p>
+<p>低值与高值</p>
+<figure>
+<img src="/2026/03/16/TMP%E7%9B%B8%E5%85%B3%E5%86%85%E5%AE%B9%E6%80%BB%E7%BB%93/image-20260320093805487.png" alt="image-20260320093805487">
+<figcaption aria-hidden="true">image-20260320093805487</figcaption>
+</figure>
+<figure>
+<img src="/2026/03/16/TMP%E7%9B%B8%E5%85%B3%E5%86%85%E5%AE%B9%E6%80%BB%E7%BB%93/image-20260320093819047.png" alt="image-20260320093819047">
+<figcaption aria-hidden="true">image-20260320093819047</figcaption>
+</figure>
+<h5 id="clamp">2.4.1.6、Clamp</h5>
+<p>斜面的高度可以收紧，从而使它更快地达到最大值。收紧的外斜面在到达轮廓的内部边缘之前结束，而收紧的内斜面在轮廓的中部有一个较大的平坦区域。</p>
+<p>正常与收紧</p>
+<figure>
+<img src="/2026/03/16/TMP%E7%9B%B8%E5%85%B3%E5%86%85%E5%AE%B9%E6%80%BB%E7%BB%93/image-20260320093951332.png" alt="image-20260320093951332">
+<figcaption aria-hidden="true">image-20260320093951332</figcaption>
+</figure>
+<figure>
+<img src="/2026/03/16/TMP%E7%9B%B8%E5%85%B3%E5%86%85%E5%AE%B9%E6%80%BB%E7%BB%93/image-20260320094002920.png" alt="image-20260320094002920">
+<figcaption aria-hidden="true">image-20260320094002920</figcaption>
+</figure>
+<h4 id="locallighting">2.4.2、LocalLighting</h4>
+<p>这个面板主要控制虚拟的光照，正是光照的明暗变化才使坡度这种属性可以被看见，让图像更立体。</p>
+<figure>
+<img src="/2026/03/16/TMP%E7%9B%B8%E5%85%B3%E5%86%85%E5%AE%B9%E6%80%BB%E7%BB%93/image-20260320094548025.png" alt="image-20260320094548025">
+<figcaption aria-hidden="true">image-20260320094548025</figcaption>
+</figure>
+<h5 id="lightangle">2.4.2.1、LightAngle</h5>
+<p>用来控制光照的方向，默认是下方，拉条从左到右刚好转360°。</p>
+<p>不同方向的光照：</p>
+<figure>
+<img src="/2026/03/16/TMP%E7%9B%B8%E5%85%B3%E5%86%85%E5%AE%B9%E6%80%BB%E7%BB%93/image-20260320094921926.png" alt="image-20260320094921926">
+<figcaption aria-hidden="true">image-20260320094921926</figcaption>
+</figure>
+<figure>
+<img src="/2026/03/16/TMP%E7%9B%B8%E5%85%B3%E5%86%85%E5%AE%B9%E6%80%BB%E7%BB%93/image-20260320094935773.png" alt="image-20260320094935773">
+<figcaption aria-hidden="true">image-20260320094935773</figcaption>
+</figure>
+<h5 id="specular-color">2.4.2.2、Specular Color</h5>
+<p>控制被模拟的光照的高光颜色。</p>
+<p>蓝色高光：</p>
+<figure>
+<img src="/2026/03/16/TMP%E7%9B%B8%E5%85%B3%E5%86%85%E5%AE%B9%E6%80%BB%E7%BB%93/image-20260320095159219.png" alt="image-20260320095159219">
+<figcaption aria-hidden="true">image-20260320095159219</figcaption>
+</figure>
+<h5 id="specularpower">2.4.2.3、SpecularPower</h5>
+<p>了解Phong光照模型的人应该知道，高光最后被一个幂函数控制，通过Pow可以控制高光的聚集程度，数值越大代表物体越光滑，高光越聚集，高光越亮。</p>
+<p>高光越来越亮：</p>
+<figure>
+<img src="/2026/03/16/TMP%E7%9B%B8%E5%85%B3%E5%86%85%E5%AE%B9%E6%80%BB%E7%BB%93/image-20260320095753247.png" alt="image-20260320095753247">
+<figcaption aria-hidden="true">image-20260320095753247</figcaption>
+</figure>
+<figure>
+<img src="/2026/03/16/TMP%E7%9B%B8%E5%85%B3%E5%86%85%E5%AE%B9%E6%80%BB%E7%BB%93/image-20260320095802862.png" alt="image-20260320095802862">
+<figcaption aria-hidden="true">image-20260320095802862</figcaption>
+</figure>
+<h5 id="reflecitvitypower">2.4.2.4、ReflecitvityPower</h5>
+<p>与Specular类似，这次控制的是环境光对最终颜色的贡献。</p>
+<h5 id="diffuse-shadow">2.4.2.5、Diffuse Shadow</h5>
+<p>控制阴影的强度，更强的阴影让光照效果更弱</p>
+<p>弱阴影与强阴影：</p>
+<figure>
+<img src="/2026/03/16/TMP%E7%9B%B8%E5%85%B3%E5%86%85%E5%AE%B9%E6%80%BB%E7%BB%93/image-20260320112438887.png" alt="image-20260320112438887">
+<figcaption aria-hidden="true">image-20260320112438887</figcaption>
+</figure>
+<figure>
+<img src="/2026/03/16/TMP%E7%9B%B8%E5%85%B3%E5%86%85%E5%AE%B9%E6%80%BB%E7%BB%93/image-20260320112447599.png" alt="image-20260320112447599">
+<figcaption aria-hidden="true">image-20260320112447599</figcaption>
+</figure>
+<h5 id="ambient-shadow">2.4.2.6、Ambient Shadow</h5>
+<p>与Diffuse Shadow类似，这次控制的是环境光阴影</p>
+<figure>
+<img src="/2026/03/16/TMP%E7%9B%B8%E5%85%B3%E5%86%85%E5%AE%B9%E6%80%BB%E7%BB%93/image-20260320112604945.png" alt="image-20260320112604945">
+<figcaption aria-hidden="true">image-20260320112604945</figcaption>
+</figure>
+<figure>
+<img src="/2026/03/16/TMP%E7%9B%B8%E5%85%B3%E5%86%85%E5%AE%B9%E6%80%BB%E7%BB%93/image-20260320112612182.png" alt="image-20260320112612182">
+<figcaption aria-hidden="true">image-20260320112612182</figcaption>
+</figure>
+<h4 id="bumpmap">2.4.3、BumpMap</h4>
+<p>你可以将一个法线贴图作为法线，然后单独控制Face和Outline所受法线影响的强度，0代表不受法线贴图影响</p>
+<figure>
+<img src="/2026/03/16/TMP%E7%9B%B8%E5%85%B3%E5%86%85%E5%AE%B9%E6%80%BB%E7%BB%93/image-20260320112828989.png" alt="image-20260320112828989">
+<figcaption aria-hidden="true">image-20260320112828989</figcaption>
+</figure>
+<p>你要放入的法线贴图</p>
+<figure>
+<img src="/2026/03/16/TMP%E7%9B%B8%E5%85%B3%E5%86%85%E5%AE%B9%E6%80%BB%E7%BB%93/image-20260320113638084.png" alt="image-20260320113638084">
+<figcaption aria-hidden="true">image-20260320113638084</figcaption>
+</figure>
+<p>对比：</p>
+<figure>
+<img src="/2026/03/16/TMP%E7%9B%B8%E5%85%B3%E5%86%85%E5%AE%B9%E6%80%BB%E7%BB%93/image-20260320113656799.png" alt="image-20260320113656799">
+<figcaption aria-hidden="true">image-20260320113656799</figcaption>
+</figure>
+<figure>
+<img src="/2026/03/16/TMP%E7%9B%B8%E5%85%B3%E5%86%85%E5%AE%B9%E6%80%BB%E7%BB%93/image-20260320113704517.png" alt="image-20260320113704517">
+<figcaption aria-hidden="true">image-20260320113704517</figcaption>
+</figure>
+<h4 id="environmentmap">2.4.4、EnvironmentMap</h4>
+<p>外面可以将一个CubeMap作为虚拟环境光的输入，FaceColor和OutlineColor分别乘以CubeMap最后输出到对应的位置，Rotation作为虚拟环境光的方向</p>
+<figure>
+<img src="/2026/03/16/TMP%E7%9B%B8%E5%85%B3%E5%86%85%E5%AE%B9%E6%80%BB%E7%BB%93/image-20260320114454038.png" alt="image-20260320114454038">
+<figcaption aria-hidden="true">image-20260320114454038</figcaption>
+</figure>
+<figure>
+<img src="/2026/03/16/TMP%E7%9B%B8%E5%85%B3%E5%86%85%E5%AE%B9%E6%80%BB%E7%BB%93/image-20260320114459581.png" alt="image-20260320114459581">
+<figcaption aria-hidden="true">image-20260320114459581</figcaption>
+</figure>
+<h3 id="glow">2.5、Glow</h3>
+<p>此功能虽然类似描边，但一般比描边更柔和，一般用于模拟辉光。</p>
+<figure>
+<img src="/2026/03/16/TMP%E7%9B%B8%E5%85%B3%E5%86%85%E5%AE%B9%E6%80%BB%E7%BB%93/image-20260320115301025.png" alt="image-20260320115301025">
+<figcaption aria-hidden="true">image-20260320115301025</figcaption>
+</figure>
+<h4 id="color-3">2.5.1、color</h4>
+<p>辉光的颜色，配合Alpha使用效果更好</p>
+<figure>
+<img src="/2026/03/16/TMP%E7%9B%B8%E5%85%B3%E5%86%85%E5%AE%B9%E6%80%BB%E7%BB%93/image-20260320115641308.png" alt="image-20260320115641308">
+<figcaption aria-hidden="true">image-20260320115641308</figcaption>
+</figure>
+<h4 id="offset-2">2.5.2、Offset</h4>
+<p>偏移的方向，主要用于控制辉光的位置，0时辉光刚好在边缘，大于0的时候辉光会往外扩散，小于0时会呈现内部的辉光（Face的颜色要设置为半透明，不然看不见）</p>
+<p>正值，0，负值</p>
+<figure>
+<img src="/2026/03/16/TMP%E7%9B%B8%E5%85%B3%E5%86%85%E5%AE%B9%E6%80%BB%E7%BB%93/image-20260320120014247.png" alt="image-20260320120014247">
+<figcaption aria-hidden="true">image-20260320120014247</figcaption>
+</figure>
+<figure>
+<img src="/2026/03/16/TMP%E7%9B%B8%E5%85%B3%E5%86%85%E5%AE%B9%E6%80%BB%E7%BB%93/image-20260320115959484.png" alt="image-20260320115959484">
+<figcaption aria-hidden="true">image-20260320115959484</figcaption>
+</figure>
+<figure>
+<img src="/2026/03/16/TMP%E7%9B%B8%E5%85%B3%E5%86%85%E5%AE%B9%E6%80%BB%E7%BB%93/image-20260320120026245.png" alt="image-20260320120026245">
+<figcaption aria-hidden="true">image-20260320120026245</figcaption>
+</figure>
+<h4 id="inner与outer">2.5.3、Inner与Outer</h4>
+<p>控制从中心向外扩散的距离，可以控制辉光扩散的范围和大小。</p>
+<h4 id="power">2.5.4、Power</h4>
+<p>控制高光的衰减情况，1的时候是线性的衰减，更低的Power会让衰减更快速的下降。</p>
+<p>1与0.2对比：</p>
+<figure>
+<img src="/2026/03/16/TMP%E7%9B%B8%E5%85%B3%E5%86%85%E5%AE%B9%E6%80%BB%E7%BB%93/image-20260320120726238.png" alt="image-20260320120726238">
+<figcaption aria-hidden="true">image-20260320120726238</figcaption>
+</figure>
+<figure>
+<img src="/2026/03/16/TMP%E7%9B%B8%E5%85%B3%E5%86%85%E5%AE%B9%E6%80%BB%E7%BB%93/image-20260320120744308.png" alt="image-20260320120744308">
+<figcaption aria-hidden="true">image-20260320120744308</figcaption>
+</figure>
+<h3 id="debug">2.6、Debug</h3>
+<p>开放了更多着色器内部使用的属性，在出现问题的时候可以调试这个来找问题，一般没事尽量别动。</p>
+
+    </div>
+    
+    
+    
+    
+    <div id="comment">
+        <div id="giscus-container" class="giscus"></div>
+    </div>
+    
+    
+    
+    
+</div>
+
+            <footer id="footer">
+    <div id="footer-wrap">
+        <div>
+            &copy;
+            2022 - 2026 枫雪のHome
+            <span id="footer-icon">
+                <i class="fa-solid fa-font-awesome fa-fw"></i>
+            </span>
+            &commat;枫雪
+        </div>
+        <div>
+            Based on the <a target="_blank" rel="noopener" href="https://hexo.io">Hexo Engine</a> &amp;
+            <a target="_blank" rel="noopener" href="https://github.com/theme-particlex/hexo-theme-particlex">ParticleX Theme</a>
+        </div>
+        
+    </div>
+</footer>
+
+        </div>
+        
+        <transition name="fade">
+            <div id="preview" ref="preview" v-show="previewShow">
+                <img id="preview-content" ref="previewContent" />
+            </div>
+        </transition>
+        
+    </div>
+    <script src="/js/main.js"></script>
+    
+    
+<script
+    src="https://giscus.app/client.js"
+    data-repo="HLsama/HLsama.github.io"
+    data-repo-id="R_kgDOPEFGjQ"
+    data-category="Announcements"
+    data-category-id="DIC_kwDOPEFGjc4Csi-O"
+    data-mapping="pathname"
+    data-strict="0"
+    data-reactions-enabled="1"
+    data-emit-metadata="0"
+    data-input-position="bottom"
+    data-theme="preferred_color_scheme"
+    data-lang="zh-CN"
+    crossorigin
+    async
+></script>
+
+
+
+
+
+    
+</body>
+</html>

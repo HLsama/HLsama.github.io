@@ -1,0 +1,368 @@
+
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="utf-8" />
+    <title>多UI共享材质 | 枫雪のHome</title>
+    <meta name="author" content="枫雪" />
+    <meta name="description" content="Elysia love" />
+    <meta name="keywords" content="" />
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"
+    />
+    <link rel="icon" href="/images/avatar.jpg" />
+    <link rel="preconnect" href="https://s4.zstatic.net" />
+<script src="https://s4.zstatic.net/ajax/libs/vue/3.3.7/vue.global.prod.min.js"></script>
+<link rel="stylesheet" href="https://s4.zstatic.net/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
+<link rel="preconnect" href="https://fonts.googleapis.cn" />
+<link rel="preconnect" href="https://fonts.gstatic.cn" crossorigin />
+<link
+    rel="stylesheet"
+    href="https://fonts.googleapis.cn/css2?family=Fira+Code:wght@400;500;600;700&family=Lexend:wght@400;500;600;700;800;900&family=Noto+Sans+SC:wght@400;500;600;700;800;900&display=swap"
+/>
+<script> const mixins = {}; </script>
+
+<script src="https://polyfill.alicdn.com/v3/polyfill.min.js?features=default"></script>
+
+
+<script src="https://s4.zstatic.net/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script src="https://s4.zstatic.net/ajax/libs/highlightjs-line-numbers.js/2.8.0/highlightjs-line-numbers.min.js"></script>
+<link
+    rel="stylesheet"
+    href="https://s4.zstatic.net/ajax/libs/highlight.js/11.9.0/styles/github.min.css"
+/>
+<script src="/js/lib/highlight.js"></script>
+
+
+<script src="https://s4.zstatic.net/ajax/libs/KaTeX/0.16.9/katex.min.js"></script>
+<script src="https://s4.zstatic.net/ajax/libs/KaTeX/0.16.9/contrib/auto-render.min.js"></script>
+<link rel="stylesheet" href="https://s4.zstatic.net/ajax/libs/KaTeX/0.16.9/katex.min.css" />
+<script src="/js/lib/math.js"></script>
+
+
+<script src="/js/lib/preview.js"></script>
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/css/main.css" />
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+<body>
+    <div id="layout">
+        <transition name="fade">
+            <div id="loading" v-show="loading">
+                <div id="loading-circle">
+                    <h2>LOADING</h2>
+                    <p>加载过慢请开启缓存 浏览器默认开启</p>
+                    <img src="/images/loading.gif" />
+                </div>
+            </div>
+        </transition>
+        <div id="menu" :class="{ hidden: hiddenMenu, 'menu-color': menuColor}">
+    <nav id="desktop-menu">
+        <a class="title" href="/">
+            <span>枫雪のHOME</span>
+        </a>
+        
+        <a href="/">
+            <i class="fa-solid fa-house fa-fw"></i>
+            <span>&ensp;主页</span>
+        </a>
+        
+        <a href="/about">
+            <i class="fa-solid fa-id-card fa-fw"></i>
+            <span>&ensp;关于我</span>
+        </a>
+        
+        <a href="/archives">
+            <i class="fa-solid fa-box-archive fa-fw"></i>
+            <span>&ensp;归档</span>
+        </a>
+        
+        <a href="/categories">
+            <i class="fa-solid fa-bookmark fa-fw"></i>
+            <span>&ensp;分类</span>
+        </a>
+        
+        <a href="/tags">
+            <i class="fa-solid fa-tags fa-fw"></i>
+            <span>&ensp;标签</span>
+        </a>
+        
+    </nav>
+    <nav id="mobile-menu">
+        <div class="title" @click="showMenuItems = !showMenuItems">
+            <i class="fa-solid fa-bars fa-fw"></i>
+            <span>&emsp;枫雪のHOME</span>
+        </div>
+        <transition name="slide">
+            <div class="items" v-show="showMenuItems">
+                
+                <a href="/">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-house fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">主页</div>
+                    </div>
+                </a>
+                
+                <a href="/about">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-id-card fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">关于我</div>
+                    </div>
+                </a>
+                
+                <a href="/archives">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-box-archive fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">归档</div>
+                    </div>
+                </a>
+                
+                <a href="/categories">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-bookmark fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">分类</div>
+                    </div>
+                </a>
+                
+                <a href="/tags">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-tags fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">标签</div>
+                    </div>
+                </a>
+                
+            </div>
+        </transition>
+    </nav>
+</div>
+<transition name="fade">
+    <div id="menu-curtain" @click="showMenuItems = !showMenuItems" v-show="showMenuItems"></div>
+</transition>
+
+        <div id="main" :class="loading ? 'into-enter-from': 'into-enter-active'">
+            <div class="article">
+    <div>
+        <h1>多UI共享材质</h1>
+    </div>
+    <div class="info">
+        <span class="date">
+            <span class="icon">
+                <i class="fa-solid fa-calendar fa-fw"></i>
+            </span>
+            2026/3/8
+        </span>
+        
+        <span class="category">
+            <a href="/categories/%E6%8A%80%E6%9C%AF/">
+                <span class="icon">
+                    <i class="fa-solid fa-bookmark fa-fw"></i>
+                </span>
+                技术
+            </a>
+        </span>
+        
+        
+        <span class="tags">
+            <span class="icon">
+                <i class="fa-solid fa-tags fa-fw"></i>
+            </span>
+            
+            
+            <span class="tag">
+                
+                <a href="/tags/UI/" style="color: #03a9f4">
+                    UI
+                </a>
+            </span>
+            
+        </span>
+        
+    </div>
+    
+    <div class="content" v-pre>
+        <p>给本篇的需求本是跟9Slice的UV异常一同提出的需求，但比较重要所以额外拆分出来了。关于多物体共享材质其实有两种方式，其一是MaterialPropertyBlock，其二则是IMaterialModifier。虽然后者才是本次需求的解决方案，不过既然作为总结性质的文档，我会将两者都详细的讲一讲。</p>
+<span id="more"></span>
+<h2 id="materialpropertyblock">1.MaterialPropertyBlock</h2>
+<p>MaterialPropertyBlock通常是配合GPUInstancing来使用的。GPUInstancing可以大规模的渲染相同物品，如果每个物体的材质有所不同的时候，为每个材质建立材质球是个相当大的消耗，所以一般会使用MaterialPropertyBlock进行渲染。他可以让所有将要渲染的物体共享同一个材质球，但每个物体却可以是单独的材质参数，具体来说就是在对象每次在渲染的时候，Renderer就会把MaterialPropertyBlock中的参数覆盖掉原先材质对象中的相关数据，相比于整个材质球储存的信息，MaterialPropertyBlock只存储需要修改的几个变量，相当的轻量化。需要注意的是，在SRP中unity已经不太推荐使用MaterialPropertyBlock了（因为会导致SRP-Batcher被打断），而更推荐去为每个物体单独的设置材质。下面是unity官方手册中对MaterialPropertyBlock的说明：</p>
+<p><a target="_blank" rel="noopener" href="https://docs.unity3d.com/ScriptReference/MaterialPropertyBlock.html">Unity
+- Scripting API: MaterialPropertyBlock</a></p>
+<p>官方示例代码：</p>
+<pre><code>using UnityEngine;
+
+public class CreateTenGameObjects : MonoBehaviour
+&#123;
+    public GameObject myPrefab;
+
+    void Start()
+    &#123;
+        // Loop through 10 GameObjects
+        for (int i = 0; i &lt; 10; i++)
+        &#123;
+            // Instantiate a new GameObject at a unique position
+            GameObject newObject = Instantiate(myPrefab, new Vector3(i * 2f, 0, 0), Quaternion.identity);
+
+            // Create a new MaterialPropertyBlock
+            MaterialPropertyBlock propertyBlock = new MaterialPropertyBlock();
+
+            // Set a random color in the MaterialPropertyBlock
+            propertyBlock.SetColor(&quot;_Color&quot;, Random.ColorHSV());
+
+            // Apply the MaterialPropertyBlock to the GameObject
+            newObject.GetComponent&lt;MeshRenderer&gt;().SetPropertyBlock(propertyBlock);
+        &#125;
+    &#125;
+&#125;</code></pre>
+<p>可以看到：MaterialPropertyBlock是依赖MeshRenderer来使用的，而UI则与常规的物体渲染有些不同，所以并没法使用这种东西。</p>
+<h1 id="imaterialmodifier">2.IMaterialModifier</h1>
+<h2 id="imaterialmodifier介绍">2.1.IMaterialModifier介绍</h2>
+<p>前文说过，UI渲染并不是MeshRenderer，而是，CanvasRenderer。那么UI真的不能共享同一个材质球吗，其实可以从unity的默认UIshader中找到答案。我们在使用UI系统时如果不填入材质球的话，unity会自动添加一个默认的材质球进行渲染，这个材质球只有一个却可以读取每个Image组件中的贴图，为同一材质球的两次渲染设置不同的贴图。</p>
+<p>如下图：两个同名材质</p>
+<figure>
+<img src="/2026/03/08/%E5%A4%9AUI%E5%85%B1%E4%BA%AB%E6%9D%90%E8%B4%A8/image-20260308211117508.png" alt="image-20260308211117508">
+<figcaption aria-hidden="true">image-20260308211117508</figcaption>
+</figure>
+<p>那么untiy就必然通过某种方式达到了这个目的。如果我们去翻看untiy的Graphic类的源代码的话会发现这样一段：</p>
+<figure>
+<img src="/2026/03/08/%E5%A4%9AUI%E5%85%B1%E4%BA%AB%E6%9D%90%E8%B4%A8/image-20260308212231472.png" alt="image-20260308212231472">
+<figcaption aria-hidden="true">image-20260308212231472</figcaption>
+</figure>
+<p>大概意思就是说这段代码是用于实际发送到的CanvasRenderer的材质，正常情况下它与Graphic.material相同，但是可以通过某种方式重写材质属性。其中GetComponents<IMaterialModifier>(components);则说明实现了IMaterialModifier的类可以参数最终渲染材质的加工过程。untiy正是通过使用IMaterialModifier的方式来去修改这些图片的，我们只需要也仿照这样的方式就能达成我们的目的。</IMaterialModifier></p>
+<p>下面是IMaterialModifier的官方文档：</p>
+<p><a target="_blank" rel="noopener" href="https://docs.unity3d.com/2018.3/Documentation/ScriptReference/UI.IMaterialModifier.html">Unity
+- Scripting API: IMaterialModifier</a></p>
+<h2 id="使用方式">2.2.使用方式</h2>
+<p>我们需要构建一个脚本来控制我们材质参数，他将继承自IMaterialModifier，而想要继承它，我们必须实现一个GetModifiedMaterial方法。此外，与其他脚本不同UI通常继承自UIBehaviour，它会提供一些方便的函数如果打开UIBehaviour类的话，会发现其实它也是继承自MonoBehaviour的。</p>
+<p>GetModifiedMaterial函数中的内容非常简单，首先将之前函数的内容复制进来：</p>
+<pre><code>Mymateraial.CopyPropertiesFromMaterial(baseMaterial);</code></pre>
+<p>接着去set我们想要修改 参数即可。</p>
+<p>此外，我们需要检测UI各处的变化，并在变化时调用SetMaterialDirty()</p>
+<p>如下：</p>
+<p>OnEnable 在组件变为启用状态并且所在 GameObject
+处于激活状态时触发。</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a> protected override <span class="dt">void</span> OnEnable<span class="op">()</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a> <span class="op">&#123;</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>     base<span class="op">.</span>OnEnable<span class="op">();</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>     <span class="cf">if</span> <span class="op">(</span>graphic <span class="op">==</span> null<span class="op">)</span> <span class="cf">return</span><span class="op">;</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>     _image <span class="op">=</span> graphic as Image<span class="op">;</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>     _graphic<span class="op">.</span>SetMaterialDirty<span class="op">();</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a> <span class="op">&#125;</span></span></code></pre></div>
+<p><code>OnDisable</code> 在组件<strong>失效</strong>时触发。</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>protected override <span class="dt">void</span> OnDisable<span class="op">()</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="op">&#123;</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>    base<span class="op">.</span>OnDisable<span class="op">();</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="op">(</span>material <span class="op">!=</span> null<span class="op">)</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>    <span class="op">&#123;</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>        DestroyMaterial<span class="op">();</span></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>    <span class="op">&#125;</span></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="op">(</span>graphic <span class="op">!=</span> null<span class="op">)</span> graphic<span class="op">.</span>SetMaterialDirty<span class="op">();</span></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a><span class="op">&#125;</span></span></code></pre></div>
+<p>OnValidate 主要是编辑器里触发的校验回调。</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>protected override <span class="dt">void</span> OnValidate<span class="op">()</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="op">&#123;</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>    base<span class="op">.</span>OnValidate<span class="op">();</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="op">(!</span>IsActive<span class="op">()</span> <span class="op">||</span> graphic <span class="op">==</span> null<span class="op">)</span> <span class="cf">return</span><span class="op">;</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>    graphic<span class="op">.</span>SetMaterialDirty<span class="op">();</span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="op">&#125;</span></span></code></pre></div>
+<p>OnDidApplyAnimationProperties()会在动画系统把动画属性应用到该对象后触发。</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>protected override <span class="dt">void</span> OnDidApplyAnimationProperties<span class="op">()</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="op">&#123;</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>    base<span class="op">.</span>OnDidApplyAnimationProperties<span class="op">();</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="op">(!</span>IsActive<span class="op">()</span> <span class="op">||</span> graphic <span class="op">==</span> null<span class="op">)</span> <span class="cf">return</span><span class="op">;</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>    graphic<span class="op">.</span>SetMaterialDirty<span class="op">();</span></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a><span class="op">&#125;</span></span></code></pre></div>
+<p>以上是正常情况下的检测状况，足以应对大部分UI事件</p>
+<p>但是如果有每帧修改的需求的话，也可以在Update中SetMaterialDirty</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode c"><code class="sourceCode c"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="dt">void</span> Update<span class="op">()</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="op">&#123;</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="op">(!</span>IsActive<span class="op">()</span> <span class="op">||</span> graphic <span class="op">==</span> null<span class="op">)</span> <span class="cf">return</span><span class="op">;</span></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>    graphic<span class="op">.</span>SetMaterialDirty<span class="op">();</span></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="op">&#125;</span></span></code></pre></div>
+
+    </div>
+    
+    
+    
+    
+    <div id="comment">
+        <div id="giscus-container" class="giscus"></div>
+    </div>
+    
+    
+    
+    
+</div>
+
+            <footer id="footer">
+    <div id="footer-wrap">
+        <div>
+            &copy;
+            2022 - 2026 枫雪のHome
+            <span id="footer-icon">
+                <i class="fa-solid fa-font-awesome fa-fw"></i>
+            </span>
+            &commat;枫雪
+        </div>
+        <div>
+            Based on the <a target="_blank" rel="noopener" href="https://hexo.io">Hexo Engine</a> &amp;
+            <a target="_blank" rel="noopener" href="https://github.com/theme-particlex/hexo-theme-particlex">ParticleX Theme</a>
+        </div>
+        
+    </div>
+</footer>
+
+        </div>
+        
+        <transition name="fade">
+            <div id="preview" ref="preview" v-show="previewShow">
+                <img id="preview-content" ref="previewContent" />
+            </div>
+        </transition>
+        
+    </div>
+    <script src="/js/main.js"></script>
+    
+    
+<script
+    src="https://giscus.app/client.js"
+    data-repo="HLsama/HLsama.github.io"
+    data-repo-id="R_kgDOPEFGjQ"
+    data-category="Announcements"
+    data-category-id="DIC_kwDOPEFGjc4Csi-O"
+    data-mapping="pathname"
+    data-strict="0"
+    data-reactions-enabled="1"
+    data-emit-metadata="0"
+    data-input-position="bottom"
+    data-theme="preferred_color_scheme"
+    data-lang="zh-CN"
+    crossorigin
+    async
+></script>
+
+
+
+
+
+    
+</body>
+</html>

@@ -1,0 +1,443 @@
+
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="utf-8" />
+    <title>计算着色器 | 枫雪のHome</title>
+    <meta name="author" content="枫雪" />
+    <meta name="description" content="Elysia love" />
+    <meta name="keywords" content="" />
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"
+    />
+    <link rel="icon" href="/images/avatar.jpg" />
+    <link rel="preconnect" href="https://s4.zstatic.net" />
+<script src="https://s4.zstatic.net/ajax/libs/vue/3.3.7/vue.global.prod.min.js"></script>
+<link rel="stylesheet" href="https://s4.zstatic.net/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
+<link rel="preconnect" href="https://fonts.googleapis.cn" />
+<link rel="preconnect" href="https://fonts.gstatic.cn" crossorigin />
+<link
+    rel="stylesheet"
+    href="https://fonts.googleapis.cn/css2?family=Fira+Code:wght@400;500;600;700&family=Lexend:wght@400;500;600;700;800;900&family=Noto+Sans+SC:wght@400;500;600;700;800;900&display=swap"
+/>
+<script> const mixins = {}; </script>
+
+<script src="https://polyfill.alicdn.com/v3/polyfill.min.js?features=default"></script>
+
+
+<script src="https://s4.zstatic.net/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script src="https://s4.zstatic.net/ajax/libs/highlightjs-line-numbers.js/2.8.0/highlightjs-line-numbers.min.js"></script>
+<link
+    rel="stylesheet"
+    href="https://s4.zstatic.net/ajax/libs/highlight.js/11.9.0/styles/github.min.css"
+/>
+<script src="/js/lib/highlight.js"></script>
+
+
+<script src="https://s4.zstatic.net/ajax/libs/KaTeX/0.16.9/katex.min.js"></script>
+<script src="https://s4.zstatic.net/ajax/libs/KaTeX/0.16.9/contrib/auto-render.min.js"></script>
+<link rel="stylesheet" href="https://s4.zstatic.net/ajax/libs/KaTeX/0.16.9/katex.min.css" />
+<script src="/js/lib/math.js"></script>
+
+
+<script src="/js/lib/preview.js"></script>
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="/css/main.css" />
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+<body>
+    <div id="layout">
+        <transition name="fade">
+            <div id="loading" v-show="loading">
+                <div id="loading-circle">
+                    <h2>LOADING</h2>
+                    <p>加载过慢请开启缓存 浏览器默认开启</p>
+                    <img src="/images/loading.gif" />
+                </div>
+            </div>
+        </transition>
+        <div id="menu" :class="{ hidden: hiddenMenu, 'menu-color': menuColor}">
+    <nav id="desktop-menu">
+        <a class="title" href="/">
+            <span>枫雪のHOME</span>
+        </a>
+        
+        <a href="/">
+            <i class="fa-solid fa-house fa-fw"></i>
+            <span>&ensp;主页</span>
+        </a>
+        
+        <a href="/about">
+            <i class="fa-solid fa-id-card fa-fw"></i>
+            <span>&ensp;关于我</span>
+        </a>
+        
+        <a href="/archives">
+            <i class="fa-solid fa-box-archive fa-fw"></i>
+            <span>&ensp;归档</span>
+        </a>
+        
+        <a href="/categories">
+            <i class="fa-solid fa-bookmark fa-fw"></i>
+            <span>&ensp;分类</span>
+        </a>
+        
+        <a href="/tags">
+            <i class="fa-solid fa-tags fa-fw"></i>
+            <span>&ensp;标签</span>
+        </a>
+        
+    </nav>
+    <nav id="mobile-menu">
+        <div class="title" @click="showMenuItems = !showMenuItems">
+            <i class="fa-solid fa-bars fa-fw"></i>
+            <span>&emsp;枫雪のHOME</span>
+        </div>
+        <transition name="slide">
+            <div class="items" v-show="showMenuItems">
+                
+                <a href="/">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-house fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">主页</div>
+                    </div>
+                </a>
+                
+                <a href="/about">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-id-card fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">关于我</div>
+                    </div>
+                </a>
+                
+                <a href="/archives">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-box-archive fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">归档</div>
+                    </div>
+                </a>
+                
+                <a href="/categories">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-bookmark fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">分类</div>
+                    </div>
+                </a>
+                
+                <a href="/tags">
+                    <div class="item">
+                        <div style="min-width: 20px; max-width: 50px; width: 10%">
+                            <i class="fa-solid fa-tags fa-fw"></i>
+                        </div>
+                        <div style="min-width: 100px; max-width: 150%; width: 20%">标签</div>
+                    </div>
+                </a>
+                
+            </div>
+        </transition>
+    </nav>
+</div>
+<transition name="fade">
+    <div id="menu-curtain" @click="showMenuItems = !showMenuItems" v-show="showMenuItems"></div>
+</transition>
+
+        <div id="main" :class="loading ? 'into-enter-from': 'into-enter-active'">
+            <div class="article">
+    <div>
+        <h1>计算着色器</h1>
+    </div>
+    <div class="info">
+        <span class="date">
+            <span class="icon">
+                <i class="fa-solid fa-calendar fa-fw"></i>
+            </span>
+            2026/5/5
+        </span>
+        
+        <span class="category">
+            <a href="/categories/%E6%8A%80%E6%9C%AF/">
+                <span class="icon">
+                    <i class="fa-solid fa-bookmark fa-fw"></i>
+                </span>
+                技术
+            </a>
+        </span>
+        
+        
+        <span class="tags">
+            <span class="icon">
+                <i class="fa-solid fa-tags fa-fw"></i>
+            </span>
+            
+            
+            <span class="tag">
+                
+                <a href="/tags/UI/" style="color: #00a596">
+                    UI
+                </a>
+            </span>
+            
+        </span>
+        
+    </div>
+    
+    <div class="content" v-pre>
+        <p>在通常的渲染流程中我们需要着色器，它一般输出的是RGBA值，而计算着色器则是比着色器更广泛的概念，我们可以自由配置GPU的核心，利用CPU的并行性来加速如大规模顶点计算等内容</p>
+<p>unity版本：Unity6000.062f1</p>
+<span id="more"></span>
+<h1 id="gpu">1、GPU</h1>
+<p>在了解计算着色器之前我们需要真正认识一下GPU，明明同样都是计算单元，为什么我们已经有CPU了还需要GPU呢。或许有人听说过CPU的优势在于计算速度，而GPU的优势则在于并行性。这很好的概括了两个处理器的特点。我们可以将CPU看作一个“好学生”，它的作业速度特别快可以快速处理非常复杂的难题，而GPU则相当于一整个学校数量的“普通学生”，他们虽然计算速度不快，但是如果有100份作业的话即使是好学生也需要写好久，而“普通学生”每人做一份，就可以用很快的速度做好这100份作业。所以我们可以这样粗略理解，GPU就是超级多运算速度较慢的CPU的集合。像渲染这种任务其实就像是这100份的作业大礼包，我们shader的着色任务就是将这100个像素的颜色计算出来，而GPU的每个核心（用NVIDIA的说法就是CUDA
+Core）同时计算这些像素的话，它当然就会比CPU一个一个计算要快很多很多。</p>
+<h1 id="计算着色器">2、计算着色器</h1>
+<p>普通的着色器（shader）是利用GPU的并行性来做渲染这种事情的，显而易见，GPU不止可以用来做这种事情，所以计算着色器（Compute
+Shader）出现了，它拥有比普通的着色器高的多的自由度，你甚至可以具体分配到底用几组核心来做哪些事情。例如我需要计算出大量粒子在空间中的位置，我需要生成某种特殊的图形，甚至是流体的模拟，光线追踪，我们都可以利用计算着色器来实现。</p>
+<p>下面是Unity的默认计算着色器的代码：</p>
+<pre><code>#pragma kernel CSMain
+
+RWTexture2D&lt;float4&gt; Result;
+
+[numthreads(8,8,1)]
+void CSMain (uint3 id : SV_DispatchThreadID)
+&#123;
+    Result[id.xy] = float4(id.x &amp; id.y, (id.x &amp; 15)/15.0, (id.y &amp; 15)/15.0, 0.0);
+&#125;</code></pre>
+<p>而下图则是这个代码生成的效果。</p>
+<figure>
+<img src="/2026/05/05/%E8%AE%A1%E7%AE%97%E7%9D%80%E8%89%B2%E5%99%A8/image-20260505121611033.png" alt="image-20260505121611033">
+<figcaption aria-hidden="true">image-20260505121611033</figcaption>
+</figure>
+<p>至于它所代表了什么，为什么会有这样的结果我们最后再说，现在只需要知道计算着色器可以做到这种事情就好。</p>
+<h2 id="kernel">2.1、kernel</h2>
+<p>我们看第一行：#pragma kernel CSMain</p>
+<p>kernel
+是内核的意思，而CSMain就是核函数，也就是最后要提交给GPU的指令，每个计算着色器至少要有一个核函数，可以有多个，会依次执行。</p>
+<h2 id="rwtexture2d">2.2、RWTexture2D</h2>
+<p>实际上就是申请个纹理，RW分别指读和写，意思是一个可读写的纹理。如果想要只读的话可以用Texture2D。</p>
+<p>在通常的shader中，我们使用UV来读取纹理中的像素，而在计算着色器中，我们可以通过每个纹理中像素的下标来读取对应的值，如Result[uint2(0,0)]。此外我们也可以以同样的方式将其写入，写入的值当然就是float4，对应RGBA四个数值，例如我们可以利用这种方式制作程序化纹理，例如噪声等，以供正常shader的像素着色器使用。</p>
+<p>而在计算着色器中除了RWTexture2D还有RWBuffer和RWStructuredBuffer等类型可以读写。后面也会依次介绍。</p>
+<h2 id="numthreads">2.3、Numthreads</h2>
+<h3 id="thread">2.3.1、Thread</h3>
+<p>这是此文最重要的一点，正是它赋予了计算着色器的独特性。</p>
+<p>首先我们要有个概念叫做线程（Thread），我们可以粗浅的理解为一个Thread就会执行一个任务，而在GPU中的一个个线程会被划分为多个线程组（Thread
+Group），一个Thread Group会在单个多留处理器（Stream
+Multiprocessor，简称SM）上被执行。例如我们的GPU有16个SM，就需要至少16个Thread
+Group来让GPU不“偷懒”，而为了避免某个SM已经做完某事而等待其他SM的情况，一般会给一个SM两个Thread
+Group让其可以在此时切换到下一个任务。</p>
+<p>而</p>
+<pre><code>numthreads(tX, tY, tZ)</code></pre>
+<p>指的就是一个Thread Group中Thread的数量，总量为tx * ty *
+tz个线程，例如numthreads(4, 4, 1) 和numthreads(16, 1, 1)
+都指的是16个线程，一般我们会将它设置为64的整数倍个，这与NVIDIA和AMD的架构有关</p>
+<p>NVIDIA会将一个线程组的线程分为一个个Warp，每个Warp中有32个线程，而Warp则通过SM来调度。所以对于NVIDIA的GPU来说，每次SM最少得调动一个Warp也就是32个线程，当我们将线程组中线程设置为10的时候，意味着其中有22个线程处于停工状态，以至于没法调动所有性能。</p>
+<p>对AMD也是类似，它会将线程组中的线程分为一个个Wavefront，一个Wavefront中带有64个线程。</p>
+<p>为了兼顾这两个显卡，一般我们倾向于将线程组中的线程数设置为64的整数倍个。</p>
+<p>此外，线程组中的线程是有限制的，一般最多只有1024个</p>
+<h3 id="thread的id">2.3.2、Thread的ID</h3>
+<p>又回到numthreads(tX, tY,
+tZ)上面，我们可以看到一个线程是由三维的关系来表示的，我们还可以用之前学生的例子，我们想要找到某个学生（线程）的话，就需要知道这个学生在那排那列（X，Y），可是我们不止有一个班级，一层楼里可能有多个班级，所以我们需要定位那班（Z）</p>
+<p>虽然这样能表示的线程很多，足足有1024个，但其实远远不够我们的需求，例如我们用Computer
+Shader来处理一张贴图，一个线程处理一个像素的话，那我们也就只能同时处理1024个像素，而我们需要处理的像素或许有1920*1080之多。</p>
+<p>这就需要多个线程组，与线程相对的，线程组也有好多好多个，用类似
+computeShader.Dispatch(kernel, 60, 34,
+1);的方式表示，它同样也是三维结构。那我们可以这样想象，一个学校有多栋楼，一个线程组就是某个楼的某一层，那么，我们想要某个层的话，就需要知道它到底在哪个楼的哪一层（X，Y），而这个市有多个学校，那么我还需要知道具体是哪个学校（Z）。想要精确的找到某个同学，我们就需要找到学校、大楼、楼层、班级、横列、纵列。</p>
+<p>下图来自于微软关于HLSL的介绍，表示了线程组和线程之间的关系。</p>
+<figure>
+<img src="/2026/05/05/%E8%AE%A1%E7%AE%97%E7%9D%80%E8%89%B2%E5%99%A8/threadgroupids.png" alt="threadgroupids">
+<figcaption aria-hidden="true">threadgroupids</figcaption>
+</figure>
+<p>上面提到了4种ID，分别是SV_GroupID、SV_GroupThreadID、SV_DispatchThreadID、SV_GroupIndex。他们所代表的含义如下表：</p>
+<table>
+<colgroup>
+<col style="width: 13%">
+<col style="width: 4%">
+<col style="width: 41%">
+<col style="width: 41%">
+</colgroup>
+<thead>
+<tr>
+<th>参数</th>
+<th>值类型</th>
+<th>含义</th>
+<th>计算公式</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>SV_GroupID</td>
+<td>int3</td>
+<td>当前线程所在的线程组的ID，取值范围为(0,0,0)到(gX-1,gY-1,gZ-1)。</td>
+<td>无</td>
+</tr>
+<tr>
+<td>SV_GroupThreadID</td>
+<td>int3</td>
+<td>当前线程在所在线程组内的ID，取值范围为(0,0,0)到(tX-1,tY-1,tZ-1)。</td>
+<td>无</td>
+</tr>
+<tr>
+<td>SV_DispatchThreadID</td>
+<td>int3</td>
+<td>当前线程在所有线程组中的所有线程里的ID，取值范围为(0,0,0)到(gX *
+tX-1, gY * tY-1, gZ * tZ-1)。</td>
+<td>假设该线程的SV_GroupID=(a, b, c)，SV_GroupThreadID=(i, j, k)
+那么SV_DispatchThreadID=(a * tX+i, b * tY+j, c * tZ+k)</td>
+</tr>
+<tr>
+<td>SV_GroupIndex</td>
+<td>int</td>
+<td>当前线程在所在线程组内的下标，取值范围为0到tX * tY * tZ-1。</td>
+<td>假设该线程的SV_GroupThreadID=(i, j, k) 那么SV_GroupIndex=k * tX *
+tY+j * tX+i</td>
+</tr>
+</tbody>
+</table>
+<p>让我再拿刚才的比喻说明下各个ID的含义（要牢记计算机的世界中数字是从0开始的）。</p>
+<h4 id="sv_groupid">SV_GroupID</h4>
+<p>指的就是现在这个学生的楼层编号。</p>
+<p>例如：</p>
+<pre class="text"><code>SV_GroupID    = （2,1,0）</code></pre>
+<p>指的是这个学生在这个市的第1所学校上学，在这个学校的第3栋楼的第2层</p>
+<h4 id="sv_groupthreadid">SV_GroupThreadID</h4>
+<p>指的是这个学生的座位在哪</p>
+<p>例如：</p>
+<pre class="text"><code>SV_GroupThreadID = （7,5,0）</code></pre>
+<p>指的就是这个学生在当前所在这个楼层的第1个教室、第8列，第6行</p>
+<h4 id="sv_groupindex">SV_GroupIndex</h4>
+<p>我们现在假设一个楼层是一整个年级，我们对整个年级的所有学生进行一个排号，SV_GroupIndex指的是这个学生在这个年级的号是多少。</p>
+<p>还是这个学生：</p>
+<pre class="text"><code>SV_GroupThreadID = （7,5,0）</code></pre>
+<p>而整个楼层（年级）所能容纳的学生是</p>
+<pre><code>numthreads(10, 8, 3)</code></pre>
+<p>一共240人</p>
+<p>我们前面有0个班级，一共0x10*8=0个人，在我们前面有5排，一排10个人一共5x10=50人，而我们在第六排的第8名</p>
+<p>所以我们是第0x10*8+5x10+8=58号，而在计算机的世界中编号是从0开始。所以实际上是第57号。</p>
+<h4 id="sv_dispatchthreadid">SV_DispatchThreadID</h4>
+<p>这次我想要知道这个学生在整个市的排名（SV_DispatchThreadID），不过我们使用的形式并不是某个数字，而是以矩阵的形式。</p>
+<p>我们假设这个市里有2个学校，每个学校有三个教学楼，每个教学楼有五层</p>
+<pre class="text"><code>Dispatch（5,3,2）</code></pre>
+<p>然后每层有3个教室，10列，8行</p>
+<pre><code>numthreads(10, 8, 3)</code></pre>
+<p>还是这个同学：第一个学校，第三个教学楼，二层</p>
+<p>第一个教室，第七列，第五排</p>
+<pre class="text"><code>SV_GroupID = （2,1,0）
+SV_GroupThreadI = （7,5,0）</code></pre>
+<p>那么就是</p>
+<pre class="text"><code>（2,1,0）* （10,8,3） = (20,8,0)
+
+(20,8,0) + （7,5,0） = （27 ， 13 ， 0）
+
+（27 ， 13 ， 0） = 27 * 13  = 351</code></pre>
+<h3 id="thread的id的使用">2.3.3、Thread的ID的使用</h3>
+<p>讲了这么多关于ID的内容，肯定是他实际上是有用的，我们可以在写核函数的时候引入这些ID</p>
+<p>如</p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="dt">void</span> CSMain <span class="op">(</span>uint3 id <span class="op">:</span> SV_DispatchThreadID<span class="op">)</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="op">&#123;</span></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>    Result<span class="op">[</span>id<span class="op">.</span>xy<span class="op">]</span> <span class="op">=</span> float4<span class="op">(</span>id<span class="op">.</span>x <span class="op">&amp;</span> id<span class="op">.</span>y<span class="op">,</span> <span class="op">(</span>id<span class="op">.</span>x <span class="op">&amp;</span> <span class="dv">15</span><span class="op">)/</span><span class="fl">15.0</span><span class="op">,</span> <span class="op">(</span>id<span class="op">.</span>y <span class="op">&amp;</span> <span class="dv">15</span><span class="op">)/</span><span class="fl">15.0</span><span class="op">,</span> <span class="fl">0.0</span><span class="op">);</span></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a><span class="op">&#125;</span></span></code></pre></div>
+<p>我们当然也可以拿到所有自己想要的ID</p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="dt">void</span> KernelFunction<span class="op">(</span>uint3 groupId <span class="op">:</span> SV_GroupID<span class="op">,</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>    uint3 groupThreadId <span class="op">:</span> SV_GroupThreadID<span class="op">,</span></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>    uint3 dispatchThreadId <span class="op">:</span> SV_DispatchThreadID<span class="op">,</span></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>    <span class="ex">uint</span> groupIndex <span class="op">:</span> SV_GroupIndex<span class="op">)</span></span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a><span class="op">&#123;</span></span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a><span class="op">&#125;</span></span></code></pre></div>
+<p>当我们想要给纹理的像素赋值的时候，如果是以前的CPU中我们就需要一个一个赋予：</p>
+<div class="sourceCode" id="cb13"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> <span class="op">(</span><span class="dt">int</span> i <span class="op">=</span> <span class="dv">0</span><span class="op">;</span> i <span class="op">&lt;</span> x<span class="op">;</span> i<span class="op">++)</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> <span class="op">(</span><span class="dt">int</span> j <span class="op">=</span> <span class="dv">0</span><span class="op">;</span> j <span class="op">&lt;</span> y<span class="op">;</span> j<span class="op">++)</span></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>        Result<span class="op">[</span>uint2<span class="op">(</span>x<span class="op">,</span> y<span class="op">)]</span> <span class="op">=</span> float4<span class="op">(</span>a<span class="op">,</span> b<span class="op">,</span> c<span class="op">,</span> d<span class="op">);</span></span></code></pre></div>
+<p>而现在我们有了一大堆线程，我们可以同时让每个线程给一个像素赋值，这时候这些ID就起作用了，还记得untiy的示例代码吗：[numthreads(8,8,1)]。</p>
+<p>其中每个线程组中有64个线程，当我们使用SV_DispatchThreadID的时候，第一个线程组（0，0，0）的ID就是(0,0)~(7,7)
+，第二个线程组（1，0，0）则是（8，0）~（7，15）对于第（a，b，0）个线程组，他的取值范围就是(ax8,
+bx8, 0)到(ax8+7, bx8+7, 0)。那么如果我们想要处理分辨率为1024*1024
+的图，我们只需要dispatch(1024/8, 1024/8, 1)个线程组。</p>
+<p>从前需要一个一个赋值的图像，我们只需要</p>
+<div class="sourceCode" id="cb14"><pre class="sourceCode cpp"><code class="sourceCode cpp"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>Result<span class="op">[</span>uint2<span class="op">(</span>SV_DispatchThreadID<span class="op">.</span>x<span class="op">,</span>SV_DispatchThreadID<span class="op">.</span>y<span class="op">)]</span> <span class="op">=</span> float4<span class="op">(</span>a<span class="op">,</span> b<span class="op">,</span> c<span class="op">,</span> d<span class="op">);</span></span></code></pre></div>
+<p>就可以全部赋值。</p>
+<p>至于其他ID则可以类似这样自由灵活的使用，这里就不举例了。</p>
+
+    </div>
+    
+    
+    
+    
+    <div id="comment">
+        <div id="giscus-container" class="giscus"></div>
+    </div>
+    
+    
+    
+    
+</div>
+
+            <footer id="footer">
+    <div id="footer-wrap">
+        <div>
+            &copy;
+            2022 - 2026 枫雪のHome
+            <span id="footer-icon">
+                <i class="fa-solid fa-font-awesome fa-fw"></i>
+            </span>
+            &commat;枫雪
+        </div>
+        <div>
+            Based on the <a target="_blank" rel="noopener" href="https://hexo.io">Hexo Engine</a> &amp;
+            <a target="_blank" rel="noopener" href="https://github.com/theme-particlex/hexo-theme-particlex">ParticleX Theme</a>
+        </div>
+        
+    </div>
+</footer>
+
+        </div>
+        
+        <transition name="fade">
+            <div id="preview" ref="preview" v-show="previewShow">
+                <img id="preview-content" ref="previewContent" />
+            </div>
+        </transition>
+        
+    </div>
+    <script src="/js/main.js"></script>
+    
+    
+<script
+    src="https://giscus.app/client.js"
+    data-repo="HLsama/HLsama.github.io"
+    data-repo-id="R_kgDOPEFGjQ"
+    data-category="Announcements"
+    data-category-id="DIC_kwDOPEFGjc4Csi-O"
+    data-mapping="pathname"
+    data-strict="0"
+    data-reactions-enabled="1"
+    data-emit-metadata="0"
+    data-input-position="bottom"
+    data-theme="preferred_color_scheme"
+    data-lang="zh-CN"
+    crossorigin
+    async
+></script>
+
+
+
+
+
+    
+</body>
+</html>
